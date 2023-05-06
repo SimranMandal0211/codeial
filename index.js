@@ -11,6 +11,10 @@ app.use(express.static('./assets'));
 
 app.use(expressLayouts);
 
+// setup database
+const db = require('./config/mongoose');
+
+
 // extract style and script from sub pages into the layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
