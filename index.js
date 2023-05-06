@@ -1,18 +1,25 @@
 const express = require('express');
+
+// Setup for cookie
+const cookieParser = require('cookie-parser');
+
 const app = express();
 const port = 8000;
 
 
 // set up the layouts
 const expressLayouts = require('express-ejs-layouts');
-
-// use assets like css js and images
-app.use(express.static('./assets'));
-
 app.use(expressLayouts);
 
 // setup database
 const db = require('./config/mongoose');
+app.use(express.urlencoded()); //add body-parser
+
+// cookie
+app.use(cookieParser());
+
+// use assets like css js and images
+app.use(express.static('./assets'));
 
 
 // extract style and script from sub pages into the layout

@@ -1,5 +1,9 @@
 module.exports.home = function(request, respond){
     
+    console.log(request.cookie);
+    respond.cookie('user_id', 25);
+
+
     return respond.render('home', {
         title: "home"
     });
