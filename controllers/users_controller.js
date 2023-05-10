@@ -29,23 +29,41 @@ module.exports.create = function(request, respond){
     if(request.body.password != request.body.confirm_password){
         return respond.redirect('back');
     }
-    User.findOne({email: request.body.email}, function(err, user){
-        if(err){    console.log('error in finding in signing up');  return; }
+    User.findOne({email: request.body.email}).then((user) => {
 
         if(!user){
-            User.create(request.body, function(err, user){
-                if(err){    console.log('error in creating user while signing up');
-                    return}
-
+            User.create(request.body).then((user) => {
                 return respond.redirect('/users/sign-in');
+            }).catch((err) => {
+                console.log(err);
+                return respond.redirect('back');
             })
-        }else{  //if user already exist we send back to sign-in page
+        }
+        else{
             return respond.redirect('back');
         }
-    });
+}).catch((err) => {
+    console.log(err);
+})
+
+// -----same as above but due to callback in Model.findOne() this showing error. so we used promises to solve this issue---------------
+    // User.findOne({email: request.body.email}, function(err, user){
+    //     if(err){    console.log('error in finding in signing up');  return; }
+
+    //     if(!user){
+    //         User.create(request.body, function(err, user){
+    //             if(err){    console.log('error in creating user while signing up');
+    //                 return}
+
+    //             return respond.redirect('/users/sign-in');
+    //         })
+    //     }else{  //if user already exist we send back to sign-in page
+    //         return respond.redirect('back');
+    //     }
+    // });
 }
 
 // get the signIn data
 module.exports.createSession = function(request, respond){
-    //TODO Later
+    // TODO Task
 }
