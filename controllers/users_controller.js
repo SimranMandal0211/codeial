@@ -65,5 +65,26 @@ module.exports.create = function(request, respond){
 
 // get the signIn data
 module.exports.createSession = function(request, respond){
-    // TODO Task
+    // steps to authenticate
+    // Find user found
+
+    User.findOne({emial: request.body.email}, function(err, user){
+        if(err){    console.log('error in finding in signing in');  return; }
+
+        // handle user found
+        if(user){
+            // handle password which don't match 
+            if(user.password != request.body.password){
+                return respond.redirect('back');
+            }
+            // handle session creation
+            respond.cookie('user_id', user_id);
+            return respond.redirect('/users/profile');
+        }
+        else{
+            // handle user not found
+            return respond.redirect('back');
+        }
+
+    });
 }
