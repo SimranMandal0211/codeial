@@ -1,28 +1,27 @@
 const passport = require('passport');
-const LocalStratergy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
-// aurhentication using Passport
-passport.use(new LocalStratergy({
+// _________aurhentication using Passport________
+passport.use(new LocalStrategy({
         usernameField: 'email'
     },
     function(email, password, done){
         // done- callback function reporting back to passport.js
 
         // find a user and establishe the identity
-        User.findOne({email: email}, function(err, user){
-            if(err){
-                console.log('Error in finding user -> Passport');
+        User.findOne({email: email}, function(err, user)  {
+            if (err){
+                console.log('Error in finding user --> Passport');
                 return done(err);
             }
-            if(!user || user.password != password){
+            if (!user || user.password != password){
                 console.log('Invalid Username/Password');
                 return done(null, false);
-                // null- no error
-                //  false- authentication
+                // null- no error  and  false- authentication
             }
-        return done(null, user);
+            return done(null, user);
         });
     }
 ));
@@ -35,10 +34,10 @@ passport.serializeUser(function(user,done){
     done(null, user.id);
 });
 
-        // (browser make request --> deserialize --> find user again)
+        // browser make request --> deserialize --> find user again)
 // deserializing the user from the key in the cookies
 passport.deserializeUser(function(id, done){
-    User.findyId(id, function(err, user){
+    User.findById(id, function(err, user){
         if(err){
             console.log('Error in finding uer --> Passport');
             return done(err);
