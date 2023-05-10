@@ -4,9 +4,27 @@ const User = require('../models/user');
 module.exports.profile = function(request, respond){
     // return respond.end('<h1>User Profile</h1>');
 
-    return respond.render('user_profile', {
-        title: "user_profile"
-    });
+    // return respond.render('user_profile', {
+    //     title: "user_profile"
+    // });
+
+    if(request.cookies.user_id){
+        User.findById(request.cookies.user_id, function(err, user){
+            if(err){ console.log('err in finding user in profile'); return; }
+            if(user){
+                return respond.render('user_profile', {
+                    title: "User profile",
+                    user: user
+                })
+            }
+            else{
+                return respond.redirect('/users/sign-in');
+            }
+        });
+    }
+    else{
+        return respond.redirect('/users/sign-in');
+    }
 }
 
 // render the sign up page
@@ -68,7 +86,7 @@ module.exports.createSession = function(request, respond){
     // steps to authenticate
     // Find user found
 
-    User.findOne({emial: request.body.email}, function(err, user){
+    User.findOne({email: request.body.email}, function(err, user){
         if(err){    console.log('error in finding in signing in');  return; }
 
         // handle user found
@@ -78,7 +96,7 @@ module.exports.createSession = function(request, respond){
                 return respond.redirect('back');
             }
             // handle session creation
-            respond.cookie('user_id', user_id);
+            respond.cookie('user_id', user.id);
             return respond.redirect('/users/profile');
         }
         else{
