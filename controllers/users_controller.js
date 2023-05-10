@@ -53,15 +53,15 @@ module.exports.create = function(request, respond){
             User.create(request.body).then((user) => {
                 return respond.redirect('/users/sign-in');
             }).catch((err) => {
-                console.log(err);
+                console.log('error in creating user while signing up ',err);
                 return respond.redirect('back');
             })
         }
-        else{
+        else{   //if user already exist we send back to sign-in page
             return respond.redirect('back');
         }
 }).catch((err) => {
-    console.log(err);
+    console.log('error in finding in signing up', err);
 })
 
 // -----same as above but due to callback in Model.findOne() this showing error. so we used promises to solve this issue---------------
@@ -105,4 +105,14 @@ module.exports.createSession = function(request, respond){
         }
 
     });
+}
+
+module.exports.signOut = function(request, respond){
+    // return respond.end('<h1>Sign-Out!! Congo You did it very well!! </h1>');
+
+    respond.clearCookie('user_id');
+    console.log("cookie clear");
+    return respond.render('user_sign_out',{
+        title: "Codeial | Sign Out"
+    })
 }
