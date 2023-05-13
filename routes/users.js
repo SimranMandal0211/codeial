@@ -9,7 +9,7 @@ router.get('/profile',passport.checkAuthentication, usersController.profile);
 
 router.get('/sign-up', usersController.signUp);
 router.get('/sign-in', usersController.signIn);
-
+router.get('/sign-out', usersController.destroySession);
 
 router.post('/create', usersController.create);
 
@@ -20,6 +20,6 @@ router.post('/create-session', passport.authenticate(
         {failureRedired: '/users/sign-in'}
     ),usersController.createSession); 
 
-router.post('/sign-out', usersController.signOut);
+// router.post('/sign-out', usersController.signOut);                   //----Manual authentication----;
 
 module.exports = router;

@@ -123,12 +123,19 @@ module.exports.createSession = function(request, respond){
     return respond.redirect('/');
 }
 
-module.exports.signOut = function(request, respond){
-    // return respond.end('<h1>Sign-Out!! Congo You did it very well!! </h1>');
+// --------------Manual Authentication -----------------
+// module.exports.signOut = function(request, respond){
+//     // return respond.end('<h1>Sign-Out!! Congo You did it very well!! </h1>');
 
-    respond.clearCookie('user_id');
-    console.log("cookie clear");
-    return respond.render('user_sign_out',{
-        title: "Codeial | Sign Out"
-    })
+//     respond.clearCookie('user_id');
+//     console.log("cookie clear");
+//     return respond.render('user_sign_out',{
+//         title: "Codeial | Sign Out"
+//     })
+// }
+// ---------------------------------------------------
+
+module.exports.destroySession = function(request, respond){
+    request.logout();
+    return respond.redirect('/');
 }
