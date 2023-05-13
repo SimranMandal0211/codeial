@@ -4,31 +4,36 @@ const User = require('../models/user');
 module.exports.profile = function(request, respond){
     // return respond.end('<h1>User Profile</h1>');
 
-    // return respond.render('user_profile', {
-    //     title: "user_profile"
-    // });
+    return respond.render('user_profile', {
+        title: "user_profile"
+    });
     
-    if(request.cookies.user_id){
-        User.findById(request.cookies.user_id, function(err, user){
-            if(err){ console.log('err in finding user in profile'); return; }
-            if(user){
-                return respond.render('user_profile', {
-                    title: "User profile",
-                    user: user
-                })
-            }
-            else{
-                return respond.redirect('/users/sign-in');
-            }
-        });
-    }
-    else{
-        return respond.redirect('/users/sign-in');
-    }
+    // if(request.cookies.user_id){
+    //     User.findById(request.cookies.user_id, function(err, user){
+    //         if(err){ console.log('err in finding user in profile'); return; }
+    //         if(user){
+    //             return respond.render('user_profile', {
+    //                 title: "User profile",
+    //                 user: user
+    //             })
+    //         }
+    //         else{
+    //             return respond.redirect('/users/sign-in');
+    //         }
+    //     });
+    // }
+    // else{
+    //     return respond.redirect('/users/sign-in');
+    // }
 }
 
 // render the sign up page
 module.exports.signUp = function(request, respond){
+    
+    if(request.isAuthenticated()){
+        return respond.redirect('/users/profile');
+    }
+    
     return respond.render('user_sign_up', {
         title: "Codeial | Sign Up"
     })
@@ -36,10 +41,16 @@ module.exports.signUp = function(request, respond){
 
 // render the sign in page
 module.exports.signIn = function(request, respond){
+
+    if(request.isAuthenticated()){
+        return respond.redirect('/users/profile');
+    }
+
     return respond.render('user_sign_in',{
         title: "Codeial | Sign In"
     })
 }
+
 
 // get the signUp data
 module.exports.create = function(request, respond){

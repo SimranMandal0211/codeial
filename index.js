@@ -19,6 +19,8 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
+const MongoStore = require('connect-mongo');
+
 app.use(express.urlencoded()); //add body-parser
 
 // cookie
@@ -47,7 +49,14 @@ app.use(session({
     resave: false,  //true
     cookie: {
         maxAge: (1000 * 60 * 100)
-    }
+    },
+        Store: MongoStore.create({
+            mongoUrl: 'mongodb://127.0.0.1/codeial_delopment', 
+            autoRemove: 'disable'
+        },function(err){
+            console.log(err || 'connect-mongodb setup OK');
+        }
+    )
 }));
 
 app.use(passport.initialize());
