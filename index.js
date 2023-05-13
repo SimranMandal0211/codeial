@@ -37,12 +37,14 @@ app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+
+// mongo store is used to store session cookie in the db
 app.use(session({
     name: 'codeial', 
     //Todo change the secret before deployment in production mode
     secret: 'blashsomething',
     saveUninitialized: false, 
-    resave: false,
+    resave: false,  //true
     cookie: {
         maxAge: (1000 * 60 * 100)
     }
@@ -51,6 +53,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(passport.setAuthenticatedUser);
 
 // use express router
 app.use('/', require('./routes'));

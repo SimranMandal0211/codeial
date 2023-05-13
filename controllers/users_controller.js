@@ -7,7 +7,7 @@ module.exports.profile = function(request, respond){
     // return respond.render('user_profile', {
     //     title: "user_profile"
     // });
-
+    
     if(request.cookies.user_id){
         User.findById(request.cookies.user_id, function(err, user){
             if(err){ console.log('err in finding user in profile'); return; }
