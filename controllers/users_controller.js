@@ -136,6 +136,8 @@ module.exports.createSession = function(request, respond){
 // ---------------------------------------------------
 
 module.exports.destroySession = function(request, respond){
-    request.logout();
-    return respond.redirect('/');
+    request.logout(function(err) {
+        if (err) { return next(err); }
+        respond.redirect('/');
+      });
 }
