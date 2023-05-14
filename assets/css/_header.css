@@ -1,0 +1,14 @@
+/* header */
+header{
+    
+    padding: .5rem 1rem;
+    width: 100vw;
+    color: white;
+    background-color: rgb(36, 3, 126);
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+header h1{
+    padding: 0 1rem;
+}

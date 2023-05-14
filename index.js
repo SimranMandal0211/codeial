@@ -1,5 +1,7 @@
 const express = require('express');
 
+const bodyParser = require('body-parser');
+
 // Setup for cookie
 const cookieParser = require('cookie-parser');
 
@@ -20,6 +22,10 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
 const MongoStore = require('connect-mongo');
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.urlencoded()); //add body-parser
 
