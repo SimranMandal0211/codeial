@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const connectSchema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema({
     content: {
         type: String, 
         require: true
