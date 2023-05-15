@@ -1,8 +1,13 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 
 const postController = require('../controllers/post_controller');
 
-router.post('/create', postController.create);
+// for checking authentication that post create by user
+router.post('/create', passport.checkAuthentication, postController.create);
+
+
+
 module.exports = router;
 
