@@ -4,8 +4,11 @@ const User = require('../models/user');
 module.exports.profile = function(request, respond){
     // return respond.end('<h1>User Profile</h1>');
 
-    return respond.render('user_profile', {
-        title: "user_profile"
+    User.findById(request.params.id, function(err, user){
+        return respond.render('user_profile', {
+            title: "user_profile",
+            profile_user: user
+        });
     });
     
     // if(request.cookies.user_id){
