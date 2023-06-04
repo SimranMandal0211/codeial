@@ -144,3 +144,13 @@ module.exports.destroySession = function(request, respond){
         respond.redirect('/');
       });
 }
+
+module.exports.update = function(request, respond){
+    if(request.user.id == request.params.id){
+        User.findByIdAndUpdate(request.params.id, request.body, function(err, user){
+            return respond.redirect('back');
+        });
+    }else{
+        return respond.status(401).send('Unauthorized');
+    }
+}
