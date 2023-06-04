@@ -18,3 +18,18 @@ module.exports.create = function(request, respond){
         }
     }
 }
+
+module.exports.destroy = function(request, respond){
+    Comment.findById(request.params.id, function(err, comment){
+        if(comment.user == request.user.id){
+            let postId = comment.post;
+            comment.remove();
+
+            Post.findByIdAndUpdate(postId, { $pull : {comments: request.params.id}}, function(err, post){
+                return respond.redirect('back');
+            })
+        }else{
+            return respond.redirect('back');
+        }
+    });
+}
