@@ -1,4 +1,4 @@
-const comment = require('../models/comment');
+const Comment = require('../models/comment');
 const Post = require('../models/post');
 
 module.exports.create = function(request, respond){
@@ -11,7 +11,7 @@ module.exports.create = function(request, respond){
             },
             function(err, comment){
                 // handle error
-                post.comment.push(comment);
+                post.comments.push(comment);
                 post.save();
             });
             respond.redirect('/');
