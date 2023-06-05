@@ -2,22 +2,33 @@ body{
     background-color: orchid;
 }
 
+.home-container{
+    /* border: 2px solid greenyellow; */
+    display: flex;
+}
+#feed-posts{
+    width: 70%;
+    padding: 10px;
+    border-left: 1px solid lightgray;
+    height: 100%;
+}
+
+#user-friends{
+    width: 30%;
+    padding: 10px;
+    border-left: 3px solid lightgray;
+}
+
 #posts-list-container{
-    display: block;
+    /* border: 2px solid purple; */
+    width: 100%;
 }
 
 #posts-list-container ul{
-    flex-direction: column;
-    align-items: normal;
-    /* display: block; */
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#posts-list-container li{
-    border: 2px solid gray;
-    border-radius: .2rem;
-    margin: .3rem 0;
-    width: 40%;
-    background-color: plum;
-    font-size: 1.3rem;
-    height: 6em;
+.post-form{
+    border: none;
 }

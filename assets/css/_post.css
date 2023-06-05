@@ -1,0 +1,32 @@
+.each-post{
+    box-shadow: 2px 5px 8px rgb(93 93 93);
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: .5rem;
+}
+.each-post:hover{
+    box-shadow: 2px 5px 8px rgb(62, 62, 62);
+}
+
+.each-post-text{
+    box-shadow: 2px 5px 8px rgb(36, 3, 126);
+    font-weight: bold;
+}
+
+.each-post-text:hover{
+    box-shadow: 2px 5px 8px rgb(23, 2, 81);
+}
+
+.comment-form{
+    border: none;
+    /* display: block; */
+    margin: .5rem 0;
+}
+
+.comment-form input{
+    margin: .2rem;
+    padding: .5rem;
+    border-radius: .5rem;
+    outline: none;
+    border: none;
+}

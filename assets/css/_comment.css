@@ -1,0 +1,21 @@
+.each-comment{
+    width: 100%;
+}
+.each-comment-text{
+    box-shadow: 2px 5px 8px rgb(105, 15, 80);  
+    margin: .5rem 0;
+    padding: .5rem ;
+    font-weight: bold;
+}
+
+.each-comment-text:hover{
+    box-shadow: 2px 5px 8px rgb(79, 11, 60);
+}
+.small-delete{
+    float: right;
+}
+.small-text{
+  position: relative;
+  left: 5rem;
+  font-weight: normal;
+}

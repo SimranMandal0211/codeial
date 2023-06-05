@@ -30,16 +30,17 @@ li{
 
 /* body */
 
-div{
+.box{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100vw;
     height: 80vh;
+    /* border: 5px solid red; */
 }
 
-form{
+.form{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,9 +49,18 @@ form{
     border: 2px solid navy;
 }
 
-form input{
+.form input{
     margin: .5rem;
     padding: .5rem;
 }
 
 
+h3{
+    text-decoration: underline;
+}
+
+/* user-friend section */
+
+#user-friends p{
+    font-size: 1rem;
+}
