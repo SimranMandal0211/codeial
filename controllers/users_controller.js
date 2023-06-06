@@ -123,6 +123,8 @@ module.exports.createSession = function(request, respond){
     // -------------------------------------
 
 // Using Passport
+   
+    request.flash('success','Logged in Successsfully');
     return respond.redirect('/');
 }
 
@@ -141,8 +143,10 @@ module.exports.createSession = function(request, respond){
 module.exports.destroySession = function(request, respond){
     request.logout(function(err) {
         if (err) { return next(err); }
-        respond.redirect('/');
       });
+
+    request.flash('success','You have Logged out!');
+    respond.redirect('/');
 }
 
 module.exports.update = function(request, respond){
