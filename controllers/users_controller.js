@@ -124,7 +124,7 @@ module.exports.createSession = function(request, respond){
 
 // Using Passport
    
-    request.flash('success','Logged in Successsfully');
+    request.flash('success', 'Logged in Successfully');
     return respond.redirect('/');
 }
 
@@ -143,10 +143,10 @@ module.exports.createSession = function(request, respond){
 module.exports.destroySession = function(request, respond){
     request.logout(function(err) {
         if (err) { return next(err); }
-      });
 
-    request.flash('success','You have Logged out!');
-    respond.redirect('/');
+        request.flash('success','You have Logged out!');
+        respond.redirect('/');
+      });
 }
 
 module.exports.update = function(request, respond){
@@ -154,7 +154,9 @@ module.exports.update = function(request, respond){
         User.findByIdAndUpdate(request.params.id, request.body, function(err, user){
             return respond.redirect('back');
         });
-    }else{
-        return respond.status(401).send('Unauthorized');
+    }
+    else{
+        request.flash('error', 'Unauthorized!');
+        return res.status(401).send('Unauthorized');
     }
 }
