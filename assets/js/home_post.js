@@ -20,7 +20,36 @@
     }
     // method to create a post in DOM
     let newPostDom = function(post){
+        return $(`<li class="each-post" id="post-${ post._id }">
+                    <p class="each-post-text">
+                        <% if (locals.user && locals.user.id == post.user.id){ %>
+                            <small class="small-delete">
+                                <a class="delete-post-button" href="/posts/destroy/${ post.id }">X</a>
+                            </small>
+                        <% } %>
+                        ${ post.content }
+                        <br>
+                        <small class="small-text">
+                            ${ post.user.name }
+                        </small>
+                    </p>
+                    <div class="post-comments">
+                        <% if (locals.user){ %>
+                            <form action="/comments/create" method="POST" class="comment-form">
+                                <input type="text" name="content" placeholder="Type Here to add comment..." required>
+                                <input type="hidden" name="post" value="${ post._id }" >
+                                <input type="submit" value="Add Comment">
+                            </form>
+                        <% } %>
+                
+                        <div class="post-comments-list">
+                            <ul id="post-comments-${ post._id }"> 
 
+                            </ul>
+                        </div>
+                    </div>
+                </li>`
+                )
     }
 
     createPost();
