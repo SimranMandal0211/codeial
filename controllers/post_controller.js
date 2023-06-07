@@ -8,9 +8,11 @@ module.exports.create = async function(request, respond){
             content: request.body.content,
             user: request.user._id
         })
+        request.flash('success', 'Post published!');
         return respond.redirect('back');
     }catch(err){
-        console.log('Error', err);
+        request.flash('err', err);
+        return respond.redirect('back');
     }
 }
 
@@ -23,13 +25,15 @@ module.exports.destroy =  async function(request, respond){
             post.remove();
             await Comment.deleteMany({post: request.param.id});
             
+            request.flash('success', 'Post and associated comments deleted');
             return respond.redirect('back');
-            
         }else{
+            request.flash('error', 'You can not delete this post!');
             return respond.redirect('back');
         }
     }catch(err){
-        console.log('Error', err);
+        request.flash('err', err);
+        return respond.redirect('back');
     }
 
 }
