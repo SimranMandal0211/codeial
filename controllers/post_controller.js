@@ -16,6 +16,7 @@ module.exports.create = async function(request, respond){
                 message: "Post created !"
             });
         }
+        request.flash('success', 'Post published!');
         return respond.redirect('back');
     }catch(err){
         request.flash('err', err);
@@ -37,7 +38,7 @@ module.exports.destroy =  async function(request, respond){
                     data: {
                         post_id: request.params.id
                     },
-                    message: "Post deleted"
+                    message: "Post deleted !"
                 });
             }
 
