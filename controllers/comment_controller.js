@@ -7,7 +7,7 @@ module.exports.create = async function(request, respond){
         let post = await Post.findById(request.body.post);
          
         if(post){
-            let comment = Comment.create({
+            let comment = await Comment.create({
                 content: request.body.content,
                 post: request.body.post,
                 user:request.user._id
@@ -45,7 +45,7 @@ module.exports.destroy = async function(request, respond){
                 });
             }
 
-            request.flash('success', 'Comment deleted');
+            request.flash('success', 'Your Comment deleted');
             return respond.redirect('back');
 
         }else{
@@ -53,7 +53,7 @@ module.exports.destroy = async function(request, respond){
             return respond.redirect('back');
         }
     }catch(err){
-        req.flash('error', err);
-        return;
+        request.flash('error', err);
+        return respond.redirect('back');
     }
 }
