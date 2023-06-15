@@ -1,5 +1,6 @@
 const User = require('../models/user');
-
+const fs = require('fs');
+const path = require('path');
 
 module.exports.profile = function(request, respond){
     // return respond.end('<h1>User Profile</h1>');
@@ -151,9 +152,7 @@ module.exports.destroySession = function(request, respond){
 
 module.exports.update = async function(request, respond){
         if(request.user.id == request.params.id){
-            // let user = await User.findByIdAndUpdate(request.params.id, request.body);
-            // return respond.redirect('back');
-    
+
             try{
                 let user = await User.findByIdAndUpdate(request.params.id);
                 User.uploadedAvatar(request, respond, function(err){
@@ -166,6 +165,10 @@ module.exports.update = async function(request, respond){
                     user.email = request.body.email;
     
                     if(request.file){
+
+                        if(user.avatar){
+                            fs.unlinkSync(path.join(__dirname, '..', user.avatar))
+                        }
                         // this is saving the path of the uploaded file into the avatar field in the user 
                         user.avatar = User.avatarPath + '/' + request.file.filename;
                     }
