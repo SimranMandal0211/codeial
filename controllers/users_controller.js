@@ -149,14 +149,36 @@ module.exports.destroySession = function(request, respond){
       });
 }
 
-module.exports.update = function(request, respond){
-    if(request.user.id == request.params.id){
-        User.findByIdAndUpdate(request.params.id, request.body, function(err, user){
-            return respond.redirect('back');
-        });
+module.exports.update = async function(request, respond){
+        if(request.user.id == request.params.id){
+            // let user = await User.findByIdAndUpdate(request.params.id, request.body);
+            // return respond.redirect('back');
+    
+            try{
+                let user = await User.findByIdAndUpdate(request.params.id);
+                User.uploadedAvatar(request, respond, function(err){
+                    if(err) {console.log('******Multer Error', err)}
+    
+
+                    // console.log(request.file);
+                    // without body we can't read this bcoz its multi part
+                    user.name = request.body.name;
+                    user.email = request.body.email;
+    
+                    if(request.file){
+                        // this is saving the path of the uploaded file into the avatar field in the user 
+                        user.avatar = User.avatarPath + '/' + request.file.filename;
+                    }
+                    user.save();
+                    return respond.redirect('back');
+                });
+            }catch(err){
+                request.flash('error', err);
+                return respond.redirect('back');
+            }
+        }
+        else{
+            request.flash('error', 'Unauthorized!');
+            return respond.status(401).send('Unauthorized');
+        }
     }
-    else{
-        request.flash('error', 'Unauthorized!');
-        return res.status(401).send('Unauthorized');
-    }
-}
