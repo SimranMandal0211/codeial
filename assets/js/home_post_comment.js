@@ -33,7 +33,7 @@ class PostComments{
                 data: $(self).serialize(),
                 success: function(data){
                     console.log('you are in comment create NOTY!!');
-                    
+
                     let newComment = pSelf.newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
@@ -61,16 +61,16 @@ class PostComments{
 
     newCommentDom(comment){
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
-        return $(`<li id="comment-${ comment._id }">
-                        <p>
+        return $(`<li id="comment-${ comment._id }" class="each-comment">
+                        <p class="each-comment-text">
                             
-                            <small>
+                            <small class="small-delete">
                                 <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
                             </small>
                             
                             ${comment.content}
                             <br>
-                            <small>
+                            <small class="small-text">
                                 ${comment.user.name}
                             </small>
                         </p>    
