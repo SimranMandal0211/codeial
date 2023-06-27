@@ -18,6 +18,8 @@
                     // call the create comment class
                     new PostComments(data.data.post._id);
                     
+                    new ToggleLike($(' .toggle-like-button', newPost));
+
                     new Noty({
                         theme: 'relax',
                         text: "Post published !!!",
@@ -46,6 +48,12 @@
                         <br>
                         <small class="small-text">
                             ${ post.user.name }
+                        </small>
+                        <br>
+                        <small>
+                            <a href="/likes/toggle/?id=${post._id}&type=Post" class="toggle-like-button" data-likes="0">
+                                0 Likes
+                            </a>
                         </small>
                     </p>
                     <div class="post-comments">

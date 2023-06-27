@@ -38,6 +38,9 @@ class PostComments{
                     $(`#post-comments-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
 
+                    
+                    new ToggleLike($(' .toggle-like-button', newComment));
+
                     // console.log('you are in comment create NOTY!!');
 
                     new Noty({
@@ -72,6 +75,13 @@ class PostComments{
                             <br>
                             <small class="small-text">
                                 ${comment.user.name}
+                            </small>
+
+                            <small>
+                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                                    0 Likes
+                                </a>
+                                    
                             </small>
                         </p>    
 

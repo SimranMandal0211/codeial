@@ -23,8 +23,12 @@ module.exports.home = async function(request, respond){
             path: 'comments',
             populate: {
                 path: 'user'
+            },
+            populate: { //for comment
+                path: 'likes'
             }
-        })
+        }).populate('comments')
+        .populate('likes');   //for post
 
         let users = await User.find({});
 
@@ -39,3 +43,10 @@ module.exports.home = async function(request, respond){
 }
 
 // module.exports.actionName = function(req, res){}
+
+// using then
+// Post.find({}).populate('comments').then(function());
+
+// let posts = Post.find({}).populate('comments').exec();
+
+// posts.then()
