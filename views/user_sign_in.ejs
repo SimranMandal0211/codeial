@@ -1,15 +1,19 @@
 <link rel="stylesheet" href="/css/user_sign_in.css">
 
 <div class="box">
-    <h1>Sign In</h1>
-
     <form action="/users/create-Session" method="POST" class="form">
+        <h1>Sign In</h1>
         <input type="email" name="email" placeholder="Email" required />
         <input type="password" name="password" placeholder="Password" required />
-        <input type="submit" value="Sign In">
+        <p class="forgotPswd">
+            <a href="">Forgot Password?</a>
+        </p>
+        <input class="signBtn" type="submit" value="Sign In">
+        <div class="flex">
+            <div class="google-icon">
+                <img width="25" height="25" src="https://img.icons8.com/color/25/google-logo.png" alt="google-logo"/>
+            </div>
+            <a class="google-link" href="/users/auth/google">Sign In with Google</a>
+        </div>
     </form>
-
-    <p>
-        <a href="/users/auth/google">Google Sign In/Sign Up</a>
-    </p>
 </div>

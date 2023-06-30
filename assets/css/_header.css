@@ -6,7 +6,7 @@ header{
     color: white;
     background-color: rgb(36, 3, 126);
     font-weight: bold;
-    margin: 1rem 0;
+    /* margin: 1rem 0; */
 }
 
 header h1{

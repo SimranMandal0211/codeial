@@ -1,3 +1,19 @@
 body{
-    background-color: palevioletred;
+    background-color: rgb(219, 227, 230);
+}
+
+.forgotPswd{
+    width: 100%;
+    /* border: 2px solid green; */
+    text-align: right;
+    font-weight: bold;
+    padding-right: 1rem;
+}
+
+.forgotPswd a{
+    color: rgb(36, 3, 126);
+}
+
+.forgotPswd a:hover{
+    text-decoration: underline;
 }

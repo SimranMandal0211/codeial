@@ -37,7 +37,6 @@ li{
     flex-direction: column;
     width: 100vw;
     height: 80vh;
-    /* border: 5px solid red; */
 }
 
 .form{
@@ -46,14 +45,53 @@ li{
     align-items: center;
     flex-direction: column;
     margin: 1rem 0;
-    border: 2px solid navy;
+    border-radius: .2rem;
+    border: 1px solid rgba(128, 128, 128, 0.226);
+    background-color: white;
+    width: 25%;
+}
+
+.form h1{
+    margin: 1rem 0;
+    color: rgb(249, 92, 6);;
 }
 
 .form input{
-    margin: .5rem;
+    margin: .6rem;
     padding: .5rem;
+    width: 90%;
+    font-weight: bold;
+    border-radius: .2rem;
+    outline: none;
+    border: 1px solid rgba(167, 167, 167, 0.678);
 }
 
+.form .signBtn{
+    background-color: rgb(249, 92, 6);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.form > div{
+    margin: .5rem 0 1rem 0;
+    background-color: rgb(8, 67, 155);
+    width: 90%;
+    font-weight: bold;
+    font-size: 1.3rem;
+    justify-content:left;
+    cursor: pointer;
+}
+
+.google-icon{
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+    border-radius: .2rem;
+    padding: .3rem .5rem;
+    margin: .2rem;
+    margin-right: 1.5rem;
+}
 
 h3{
     text-decoration: underline;
