@@ -6,3 +6,32 @@
     color: rgb(146, 59, 8);
     border: 2px solid rgb(146, 59, 8);
 }
+.user-img-box{
+    background-color: white;
+    border:none;
+    outline: none;
+    width: 25%;
+    height: 30%;
+    justify-content: center;
+}
+.user-img-box img{
+    border: 2px solid rgb(8, 67, 155);
+    width: 40%;
+    height: 80%;
+    border-radius: 50%;
+}
+.userForm{
+    background-color: white;
+    margin: 0;
+    border: none;
+    outline: none;
+}
+
+.userForm label{
+    color: rgb(108, 108, 108);
+    font-weight: bold;
+    text-align: left;
+    /* border: 2px solid green; */
+    width: 100%;
+    padding-left: 1rem;
+}
