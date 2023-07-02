@@ -9,6 +9,8 @@ module.exports.create = async function(request, respond){
             user: request.user._id
         });
         if(request.xhr){
+            post = await post.populate('user', 'name').execPopulate();
+
             return respond.status(200).json({
                 data: {
                     post: post
@@ -36,7 +38,7 @@ module.exports.destroy =  async function(request, respond){
 
             
             post.remove();
-            await Comment.deleteMany({post: request.param.id});
+            await Comment.deleteMany({post: request.params.id});
             
             if(request.xhr){
                 return respond.status(200).json({
