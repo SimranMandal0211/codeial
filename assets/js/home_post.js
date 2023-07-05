@@ -56,12 +56,9 @@
                         
                         <small>
                             <i class="fa-solid fa-heart"></i>
-                                <a class="toggle-like-button" data-likes="${ post.likes.length }" href="/likes/toggle/?id=${post._id}&type=Post">
-                                    ${ post.likes.length }
+                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
+                                   0 Likes
                                 </a>
-
-                                ${ post.likes.length }
-                
                         </small>
                     </p>
                     <div class="post-comments">
