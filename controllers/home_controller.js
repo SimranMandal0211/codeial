@@ -27,7 +27,8 @@ module.exports.home = async function(request, respond){
             populate: { //for comment
                 path: 'likes'
             }
-        }).populate('comments')
+        })
+        // .populate('comments')
         .populate('likes');   //for post
 
         let users = await User.find({});

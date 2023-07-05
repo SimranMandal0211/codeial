@@ -64,27 +64,28 @@ class PostComments{
 
     newCommentDom(comment){
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
-        return $(`<li id="comment-${ comment._id }" class="each-comment">
-                        <p class="each-comment-text">
-                            
+        return $(`<li class="each-comment" id="comment-${ comment._id }">
+                    <p class="each-comment-text">
                             <small class="small-delete">
-                                <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
+                                <a class="delete-comment-button" href="/comments/destroy/${ comment._id }">X</a>
                             </small>
+                
+                        <div class="comment-user">
+                                <img src="${ user.avatar }" alt="${ user.name }" width="100">
+                            <p> ${ post.user.name } </p>
+                            <p class="comment-timing">comment timing</p>
                             
-                            ${comment.content}
-                            <br>
-                            <small class="small-text">
-                                ${comment.user.name}
-                            </small>
-
                             <small>
-                                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
-                                    0 Likes
-                                </a>
-                                    
+                                <i class="fa-solid fa-heart"></i>
+                                    <a class="toggle-like-button" data-likes="${ comment.likes.length }" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                                    ${ comment.likes.length } 
+                                    </a>
+                                    ${ comment.likes.length }
                             </small>
-                        </p>    
-
+                        </div>
+                
+                        <p class="comment-content">${ comment.content }</p>
+                    </p> 
                 </li>`);
     }
 
