@@ -40,40 +40,45 @@
         return $(`<li class="each-post" id="post-${ post._id }">
                     <p class="each-post-text">
 
-                        <small class="small-delete">
-                            <a class="delete-post-button" href="/posts/destroy/${ post._id }">X</a>
-                        </small>
-
-                        ${ post.content }
-                        <br>
-                        <small class="small-text">
-                            ${ post.user.name }
-                        </small>
-                        <br>
+                            <small class="small-delete">
+                                <a class="delete-post-button" href="/posts/destroy/${ post._id }" >X</a> 
+                            </small>
+                
+                        <div class="post-user">
+                                <div><img src="${ user.avatar }" alt="${ user.name }" width="100"></div>
+                            <span>
+                                <p> ${ post.user.name } </p>
+                                <p class="post-timing">Timing of Post</p>
+                            </span>
+                        </div>
+                        
+                        <p class="post-content">${post.content }</p>
+                        
                         <small>
                             <i class="fa-solid fa-heart"></i>
-                            <a href="/likes/toggle/?id=${post._id}&type=Post" class="toggle-like-button" data-likes="0">
-                             0 Likes
-                            </a>
+                                <a class="toggle-like-button" data-likes="${ post.likes.length }" href="/likes/toggle/?id=${post._id}&type=Post">
+                                    ${ post.likes.length }
+                                </a>
+
+                                ${ post.likes.length }
+                
                         </small>
                     </p>
                     <div class="post-comments">
-                
-                        <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST" class="comment-form" >
-                            <input type="text" name="content" placeholder="Type Here to add comment..." required>
-                            <input type="hidden" name="post" value="${ post._id }" >
-                            <input type="submit" value="Add Comment">
-                        </form>
-    
+                            <form action="/comments/create" method="POST" class="comment-form" id="post-${ post._id }-comments-form" >
+                                <input type="text" name="content" placeholder="Type Here to add comment..." required />
+                                <input type="hidden" name="post" value="${ post._id }" />
+                                <input type="submit" value="Add Comment" style="font-weight:bold; background-color: rgba(128, 128, 128, 0.461);"/>
+                            </form>
                 
                         <div class="post-comments-list">
-                            <ul id="post-comments-${ post._id }"> 
-
+                            <ul id="post-comments-${ post._id }">
+                               
                             </ul>
                         </div>
                     </div>
-                </li>`
-                )
+                </li>
+                `)
     }
 
     // method to delete a post from DOM
