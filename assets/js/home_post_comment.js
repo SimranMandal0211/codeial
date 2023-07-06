@@ -64,27 +64,58 @@ class PostComments{
 
     newCommentDom(comment){
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
+        // return $(`<li class="each-comment" id="comment-${ comment._id }">
+        //             <p class="each-comment-text">
+        //                     <small class="small-delete">
+        //                         <a class="delete-comment-button" href="/comments/destroy/${ comment._id }">X</a>
+        //                     </small>
+                
+        //                 <div class="comment-user">
+        //                         <img src="${ comment.user.avatar }" alt="${ comment.user.name }" width="100">
+        //                     <p> ${ comment.user.name } </p>
+        //                     <p class="comment-timing">comment timing</p>
+                            
+        //                     <small>
+        //                         <i class="fa-solid fa-heart"></i>
+        //                             <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+        //                             0 Likes
+        //                             </a>
+                                    
+        //                     </small>
+        //                 </div>
+                
+        //                 <p class="comment-content">${ comment.content }</p>
+        //             </p> 
+        //         </li>`);
+
         return $(`<li class="each-comment" id="comment-${ comment._id }">
                     <p class="each-comment-text">
+                        
                             <small class="small-delete">
                                 <a class="delete-comment-button" href="/comments/destroy/${ comment._id }">X</a>
                             </small>
+                        
                 
                         <div class="comment-user">
-                                <img src="${ user.avatar }" alt="${ user.name }" width="100">
-                            <p> ${ post.user.name } </p>
+                            
+                                <img src="${ comment.user.avatar }" alt="${ comment.user.name }" width="100">
+                            
+                            <p class="comment-user-name"> ${ comment.user.name } </p>
                             <p class="comment-timing">comment timing</p>
                             
                             <small>
                                 <i class="fa-solid fa-heart"></i>
-                                    <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
-                                    0 Likes
+                                
+                                    <a class="toggle-like-button" data-likes="${ comment.likes.length }" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                                    ${ comment.likes.length } 
                                     </a>
-                                    
+                                    ${ comment.likes.length }
+                            
                             </small>
                         </div>
                 
                         <p class="comment-content">${ comment.content }</p>
+
                     </p> 
                 </li>`);
     }

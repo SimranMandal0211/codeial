@@ -10,7 +10,7 @@
 
         <div class="post-user">
             <% if(locals.user){%>
-                <div><img src="<%= user.avatar %>" alt="<%= user.name %>" width="100"></div>
+                <div><img src="<%= post.user.avatar %>" alt="<%= post.user.name %>" width="100"></div>
             <% } %>
              <span>
                 <p class="post-user-name"> <%= post.user.name %> </p>
