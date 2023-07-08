@@ -25,6 +25,10 @@
     
     <section id="user-friends">
         <h3>Friends</h3>
+    </section>
+
+    <section id="user-list">
+        <h3>Users</h3>
         <% for(u of all_users){ %>
             <p>
                 <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
