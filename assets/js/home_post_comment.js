@@ -81,12 +81,10 @@ class PostComments{
                             <p class="comment-timing">comment timing</p>
                             
                             <small>
-                                <i class="fa-solid fa-heart"></i>
                                 
                                     <a class="toggle-like-button" data-likes="${ comment.likes.length }" href="/likes/toggle/?id=${comment._id}&type=Comment">
-                                    ${ comment.likes.length } 
+                                        <i class="fa-regular fa-heart"></i> ${ comment.likes.length } 
                                     </a>
-                                    ${ comment.likes.length }
                             
                             </small>
                         </div>

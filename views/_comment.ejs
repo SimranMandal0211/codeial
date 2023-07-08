@@ -16,13 +16,13 @@
             <p class="comment-timing">comment timing</p>
             
             <small>
-                <i class="fa-solid fa-heart"></i>
+                
                 <% if(locals.user){ %>
                     <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
-                        <%= comment.likes.length %> 
+                        <i class="fa-regular fa-heart"></i> <%= comment.likes.length %> 
                     </a>
                 <% }else{ %>
-                   <%= comment.likes.length %>
+                    <i class="fa-regular fa-heart"></i> <%= comment.likes.length %>
                 <% } %>
             </small>
         </div>
