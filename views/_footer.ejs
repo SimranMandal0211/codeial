@@ -6,6 +6,12 @@
     <p>&copy; Coding Ninjas, All Right Reserved</p>
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/users/profile">Profile</a></li>
+        <li>
+            <% if(user){ %>
+                <p>
+                    <a href="/users/profile/<%= user.id %>">Profile</a>
+                </p>
+            <% } %>
+        </li>
     </ul>
 </footer>
