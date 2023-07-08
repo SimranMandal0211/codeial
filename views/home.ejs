@@ -29,11 +29,17 @@
 
     <section id="user-list">
         <h3>Users</h3>
-        <% for(u of all_users){ %>
-            <p>
-                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-            </p>
-        <% } %>
+        <div>
+            <% for(u of all_users){ %>
+                <p>
+                    <img src="<%= u.avatar %>" alt="<%= u.name %>" width="100"></img>
+    
+                    <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+    
+                    <button type="submit">Add Friend</button>
+                </p>
+            <% } %>
+        </div>
     </section>
 </div>
 

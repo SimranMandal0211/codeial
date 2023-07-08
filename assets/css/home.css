@@ -62,3 +62,48 @@
 .post-form{
     border: none;
 }
+
+/* section 3 */
+#user-list{
+    border: 2px solid blue;
+    height: 50vh;
+    width: 20%;
+}
+#user-list > div{
+    overflow: auto;
+    height: 50vh;
+    border: 2px solid red;
+}
+#user-list p{
+    border: 2px solid green;
+    color: black;
+    height: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#user-list img{
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    border: 2px solid rgba(0, 0, 0, 0.717);
+    margin-right: .5rem;
+}
+
+#user-list a{
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#user-list button{
+    background-color: rgb(249, 92, 6);
+    color: white;
+    font-size: .8rem;
+    font-weight: bold;
+    padding: .5rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: .3rem;
+}

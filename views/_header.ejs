@@ -8,7 +8,11 @@
     <ul>
         <% if(locals.user){ %> 
             <li>
-                <p><a href="/users/profile/<%= user.id %>"><%= user.name %></a></p>
+                <p class="profile-img">
+                    <img src="<%= user.avatar %>" alt="<%= user.name %>" width="100"></img>
+                
+                    <a href="/users/profile/<%= user.id %>"><%= user.name %></a>
+                </p>
             </li>
             <li>
                 <a href="/users/sign-out">Sign Out</a>

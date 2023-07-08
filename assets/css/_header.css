@@ -12,3 +12,18 @@ header{
 header h1{
     padding: 0 1rem;
 }
+
+.profile-img {
+    /* border: 2px solid white; */
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.profile-img img{
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    border: 2px solid rgba(0, 0, 0, 0.717);
+    margin-right: .5rem;
+}
