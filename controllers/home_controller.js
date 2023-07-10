@@ -36,7 +36,8 @@ module.exports.home = async function(request, respond){
         return respond.render('home', {
             title: "Codeial | Home",
             posts:  posts,
-            all_users: users
+            all_users: users,
+            friends: friends
         });
     }catch(err){
         console.log('Error', err);
