@@ -4,17 +4,34 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 /* common  */
 .fa-heart{
     color: red;
 }
+/* common section */
+section h3{
+    padding: .2rem;
+}
+
+section:not(:first-child) {
+    flex: 0 0 50%;
+    width: 50%; 
+    height: 50vh;
+    width: 45%;
+    border-left: 3px solid lightgray;
+    padding: 10px;
+  }
 
 /* section 1 */
 #feed-posts{
     width: 55%;
     padding: 10px;
     height: 100%;
+    flex: 0 0 100%;
+    border: 2px solid red;
 }
 .post-form{
     width: 90%;
@@ -42,12 +59,10 @@
 }
 
 /* section 2 */
-#user-friends{
-    margin-left: 2rem;
-    width: 20%;
-    padding: 10px;
-    border-left: 3px solid lightgray;
-}
+/* #user-friends{
+    
+    
+} */
 
 #posts-list-container{
     /* border: 2px solid purple; */
@@ -55,7 +70,6 @@
 }
 
 #posts-list-container ul{
-    display: flex;
     flex-wrap: wrap;
 }
 
@@ -64,17 +78,14 @@
 }
 
 /* section 3 */
-#user-list{
+/* #user-list{
     border: 2px solid blue;
-    height: 50vh;
-    width: 20%;
-}
-#user-list > div{
+} */
+#user-list > ul{
     overflow: auto;
     height: 50vh;
-    border: 2px solid red;
 }
-#user-list p{
+#user-list li{
     border: 2px solid green;
     color: black;
     height: 20%;
@@ -90,20 +101,8 @@
     margin-right: .5rem;
 }
 
-#user-list a{
+#user-list .user-list-name{
     color: black;
     font-size: 1rem;
     font-weight: bold;
-}
-
-#user-list button{
-    background-color: rgb(249, 92, 6);
-    color: white;
-    font-size: .8rem;
-    font-weight: bold;
-    padding: .5rem;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    border-radius: .3rem;
 }

@@ -1,0 +1,12 @@
+.add-friend-btn{
+    background-color: rgb(249, 92, 6);
+    color: white;
+    font-size: .8rem;
+    font-weight: bold;
+    padding: .4rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: .2rem;
+}
+

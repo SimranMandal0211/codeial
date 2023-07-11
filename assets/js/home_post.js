@@ -69,7 +69,7 @@
                             </form>
                 
                         <div class="post-comments-list">
-                            <ul id="post-comments-${ post._id }">
+                            <ul class="flex" id="post-comments-${ post._id }">
                                 
                             </ul>
                         </div>
