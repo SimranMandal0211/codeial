@@ -1,4 +1,5 @@
-.add-friend-btn{
+.add-friend-btn,
+.remove-friend{
     background-color: rgb(249, 92, 6);
     color: white;
     font-size: .8rem;
@@ -8,5 +9,23 @@
     border: none;
     outline: none;
     border-radius: .2rem;
+}
+
+#user-friends ul{
+    border: 2px solid purple;
+    justify-content: space-around;
+    font-weight: bold;
+}
+
+#user-friends img{
+    border: 2px solid green;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+#user-friends a{
+    color: black;
+
 }
 

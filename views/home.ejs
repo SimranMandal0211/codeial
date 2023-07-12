@@ -26,6 +26,12 @@
     
     <section id="user-friends">
         <h3>Friends</h3>
+        <ul class="flex" id="friend-list">
+            <!-- <img src="" alt="">
+            <a href="">QWERTY</a>
+            <a href="" class="remove-friend">Remove</a> -->
+            
+        </ul>
     </section>
 
     <section id="user-list">
@@ -34,13 +40,17 @@
             <% for(u of all_users){ %>
                 <li>
                     <img src="<%= u.avatar %>" alt="<%= u.name %>" width="100"></img>
-    
+
                     <a class="user-list-name" href="/users/profile/<%= u.id %>"><%= u.name %></a>
-    
-                    <button type="submit">Add Friend</button>
-                </p>
+
+                    <!-- <button type="submit">Add Friend</button> -->
+                    
+                    <a class="add-friend-btn" href="/friends/friendship/request" > <!-- /?id=<%=u._id%> -->
+                        Add Friend
+                    </a>
+                </li>
             <% } %>
-            </ul>
+        </ul>
     </section>
 </div>
 
@@ -53,5 +63,13 @@
     $('.toggle-like-button').each(function(){
         let self = this;
         let toggleLike = new ToggleLike(self);
+    });
+</script>
+
+<script src="/js/friend_request.js"></script>
+<script>
+    $('.add-friend-btn').each(function(){
+        let self = this;
+        let addFriend = new AddFriend(self);
     });
 </script>

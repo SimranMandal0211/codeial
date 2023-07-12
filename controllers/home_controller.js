@@ -31,13 +31,14 @@ module.exports.home = async function(request, respond){
         // .populate('comments')
         .populate('likes');   //for post
 
-        let users = await User.find({});
+        let users = await User.find({})
+        .populate('friendships');
 
         return respond.render('home', {
             title: "Codeial | Home",
             posts:  posts,
             all_users: users,
-            friends: friends
+            // friends: friends
         });
     }catch(err){
         console.log('Error', err);
