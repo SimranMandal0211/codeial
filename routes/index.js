@@ -14,6 +14,9 @@ router.use('/comments', require('./comments'));
 router.use('/likes', require('./likes'));
 router.use('/friends', require('./friends'));
 
+router.use('/api', require('./api'));
+
+
 // for any further routers, access from here
 // router.use('/routerName, require('./routerfile));
 
