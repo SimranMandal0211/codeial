@@ -29,6 +29,7 @@ module.exports.destroy =  async function(request, respond){
     try{
         let post = await Post.findById(request.params.id);
 
+        if(post.user == request.user.id){
             await Like.deleteMany({likeable: post, onModel: 'Post'});
             await Like.deleteMany({_id: {$in: post.comments}});
 
@@ -36,9 +37,14 @@ module.exports.destroy =  async function(request, respond){
             post.remove();
             await Comment.deleteMany({post: request.params.id});
 
-        return respond.json(200, {
-            message: "Post and associated comments deleted successfully!"
-        });
+            return respond.json(200, {
+                message: "Post and associated comments deleted successfully!"
+            });
+        }else{
+            return respond.json(401, {
+                message: "You csnnot delete this post!"
+            });
+        }
     }catch(err){
         console.log('*******',err);
         return respond.json(500, {
