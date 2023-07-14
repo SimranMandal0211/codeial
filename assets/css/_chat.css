@@ -31,14 +31,11 @@
     background-color: rgb(134, 197, 243);
 }
 
-#chatbox form{
+#chatbox div{
     position: absolute;
     bottom: 20px;
-    /* right: 20px; */
-}
-
-#chatbox form{
     width: 100%;
+    /* right: 20px; */
 }
 
 #chatbox input{

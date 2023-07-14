@@ -2,7 +2,7 @@
 
 <% if(locals.user){ %>
     <aside id="chatbox" >   <!-- id="user-chat-box" -->
-        <ul class="messageBox"> <!-- id="chat-messages-list " -->
+        <ul class="messageBox" id="chat-messages-list" >
             <li class="other-message">
                 <span>Other Message</span>
             </li>
@@ -10,10 +10,10 @@
                 <span>Self Message</span>
             </li>
         </ul>
-        <form action="" id="chat-message-input-container">
+        <div id="chat-message-input-container">
             <input type="text" placeholder="Type message here..." id="chat-message-input" />
-            <button type="submit" id="send-message" >Send</button>
-        </form>
+            <button id="send-message" >Send</button>
+        </div>
     </aside>
 <% } %>
 
