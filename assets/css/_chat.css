@@ -1,6 +1,6 @@
 #chatbox{
     position: fixed;
-    bottom: 20px;
+    bottom: 40px;
     right: 20px;
     background-color:white;
     border: 2px solid gray;
@@ -14,32 +14,54 @@
 #chatbox .messageBox{
     padding: 1rem;
     height: 90%;
+    overflow-x: hidden;
 }
 .messageBox li{
+    padding: 0;
     margin-bottom: 10px;
-    padding: .3rem;
-    border: 2px solid brown;
+    /* border: 2px solid brown; */
     width:60%;
+    height: fit-content;
     font-weight: bold;
     font-size: 1rem;
+    position: relative;
 }
+
+.messageBox span{
+    padding: .5rem;
+    width: 100%;
+    display: block;
+    border-radius: .3rem;
+}
+
 .other-message{
+    float: left;
+}
+.other-message span{
     background-color: rgb(236, 149, 152);
 }
+
 .self-message{
     float: right;
+}
+.self-message span{
     background-color: rgb(134, 197, 243);
 }
 
+.messageBox li sub{
+    float: right;
+    color: rgba(97, 97, 97, 0.838);
+    background-color: white;
+}
+
 #chatbox div{
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    /* right: 20px; */
+    position: fixed;
+    bottom: 40px;
+    /* width: 50%; */
 }
 
 #chatbox input{
-    width: 78%;
+    width: 75%;
     padding: .2rem;
     outline: none;
 }

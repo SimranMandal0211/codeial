@@ -1,15 +1,16 @@
 
 // frontend esteblishing
 class ChatEngine{
-    constructor(chatBoxId, userEmail){
+    constructor(chatBoxId, userEmail, userName){
         this.chatBox = $(`#${chatBoxId}`);
         this.userEmail = userEmail;
+        this.userName = userName;
 
 // this tell go and connect
 // 1..
     this.socket = io.connect('http://localhost:5000'); //io - is gloable variable by socket.io file
 
-        if (this.userEmail){
+        if (this.userEmail || this.userName){
             this.connectionHandler();
         }
     }
@@ -23,6 +24,7 @@ class ChatEngine{
 
             self.socket.emit('join_room', {
                 user_email: self.userEmail,
+                user_name: self.userName,
                 chatroom: 'codeial'
             });
 
@@ -39,6 +41,7 @@ class ChatEngine{
                 self.socket.emit('send_message', {
                     message: msg,
                     user_email: self.userEmail,
+                    user_name: self.userName,
                     chatroom: 'codeial'
                 });
             }
@@ -51,7 +54,7 @@ class ChatEngine{
 
             let messageType = 'other-message';
 
-            if (data.user_email == self.userEmail){
+            if ((data.user_email == self.userEmail) || (data.user_name == self.userName)){
                 messageType = 'self-message';
             }
 
@@ -60,7 +63,7 @@ class ChatEngine{
             }));
 
             newMessage.append($('<sub>', {
-                'html': data.user_email
+                'html': data.user_name
             }));
 
             newMessage.addClass(messageType);
