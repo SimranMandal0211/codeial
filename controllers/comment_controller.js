@@ -20,6 +20,8 @@ module.exports.create = async function(request, respond){
             post.comments.push(comment);
             post.save();
 
+            comment = await comment.populate('user', 'name email avatar');
+
             // Similar for comments to fetch the user's id!
             // comment = await comment.populate('user', 'name email').execPopulate();  
 

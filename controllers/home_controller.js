@@ -24,13 +24,20 @@ module.exports.home = async function(request, respond){
             populate: {
                 path: 'user'
             },
-            populate: { //for comment
+            // populate: { //for comment
+            //     path: 'likes'
+            // }
+        }).populate({
+            path: 'comments',
+            populate: {
                 path: 'likes'
-            }
+            },
         })
         // .populate('comments')
         .populate('likes');   //for post
 
+        // console.log('qqqq',posts[0].comments);
+        
         let users = await User.find({})
         .populate('friendships');
 

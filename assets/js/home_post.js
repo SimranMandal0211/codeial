@@ -39,7 +39,7 @@
         return $(`<li class="each-post" id="post-${ post._id }"> 
                     <p class="each-post-text">
                             <small class="small-delete">
-                                <a class="delete-post-button" href="/posts/destroy/${ post.id }">X</a> 
+                                <a class="delete-post-button" href="/posts/destroy/${ post._id }">X</a> 
                             </small>
                 
                         <div class="post-user">
