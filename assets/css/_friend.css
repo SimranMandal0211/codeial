@@ -12,9 +12,18 @@
 }
 
 #user-friends ul{
-    border: 2px solid purple;
-    justify-content: space-around;
     font-weight: bold;
+    overflow: auto;
+}
+
+#user-friends li {
+    border: 2px solid orangered;
+    height: 20%;
+    padding: .3rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 #user-friends img{
@@ -26,6 +35,6 @@
 
 #user-friends a{
     color: black;
-
+    font-size: .8rem;
 }
 

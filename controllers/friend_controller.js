@@ -2,11 +2,13 @@ const User = require('../models/user');
 const Friendship = require('../models/friendship');
 
 // Send a friend request
-module.exports.sendFriendRequest = async function(request, respond){
+module.exports.addFriend = async function(request, respond){
   try{
-    const { fromUserId, toUserId } = request.body;
-
-    console.log('request', request.body);
+    console.log('inside friend controller');
+    // console.log('query',request.query);
+    // const { fromUserId, toUserId } = request.query;
+    const fromUserId = request.query.fromUser;
+    const toUserId = request.query.toUser;
     
     // create a new friendship request
     const friendship = new Friendship({
@@ -30,8 +32,8 @@ module.exports.sendFriendRequest = async function(request, respond){
       return respond.status(200).json({
         message: 'Friend request sent successfully',
         data: {
-          // fromUser: fromUser,
-          // toUser: toUser
+          fromUser: fromUser,
+          toUser: toUser
         }
       })
     }

@@ -3,7 +3,7 @@ const router = express.Router();
 const friendController = require('../controllers/friend_controller');
 
 // Send a friend request
-router.post('/friendship/request', friendController.sendFriendRequest);
+router.post('/friendship/add', friendController.addFriend);
 
 // Accept a friend request
 // router.post('/friendship/accept', friendController.acceptFriendRequest);

@@ -15,35 +15,27 @@ class AddFriend{
                 type: 'POST',
                 url:$(self).attr('href'),
             }).done(function(data){
-                console.log('inside friend data::: ',data);
-                
-                let addNewFriend = data.toUser;
+                console.log('Added friend data::: ',data.data.toUser.name);
+
+                let addNewFriend = data.data.toUser;
                 if(addNewFriend){
                     const friendList = document.getElementById('friend-list');
                     const friendListItem = document.createElement('li');
                     friendListItem.textContent = addNewFriend.name;
-                    friendList.appendChild(listItem);
+                    friendList.appendChild(friendListItem);
                 }
+
+                new Noty({
+                    theme: 'relax',
+                    text: 'Friend Added!!!',
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                }).show();
+
             }).fail(function(err){
                 console.log('error in completing the request');
             });
         });
     }
 }
-
-
-// function addFriend(userId) {
-//     console.log('add friend');
-
-//     // Find the selected user in the user list
-//     const selectedUser = User.find(user => user.id === userId);
-
-//     // Check if the user exists
-//     if(selectedUser){
-//         // Add the friend to the friend list
-//         const friendList = document.getElementById('friend-list');
-//         const listItem = document.createElement('li');
-//         listItem.textContent = selectedUser.name;
-//         friendList.appendChild(listItem);
-//     }
-// }
