@@ -30,8 +30,10 @@
             <% for(friend of all_friends){ %>
                 <li>
                     <img src="<%= friend.to_user.avatar %>" alt="<%= friend.to_user.name %>">
-                    <a href="" class="user-friend-name"><%= friend.to_user.name %></a>
-                    <a href="" class="remove-friend">Remove</a>
+
+                    <a href="/users/profile/<%= friend.to_user.id %>" class="user-friend-name"><%= friend.to_user.name %></a>
+
+                    <a href="" class="remove-friend remove-add-btn">Remove</a>
                 </li>
             <% } %>
         </ul>
@@ -46,7 +48,7 @@
 
                     <a class="user-list-name" href="/users/profile/<%= u.id %>"><%= u.name %></a>
 
-                    <a class="add-friend-btn" href="/friends/friendship/add?toUser=<%=u._id%>&fromUser=<%=locals.user._id%>"> <!-- /?id=<%=u._id%> -->
+                    <a class="add-friend-btn remove-add-btn" href="/friends/friendship/add?toUser=<%=u._id%>&fromUser=<%=locals.user._id%>"> <!-- /?id=<%=u._id%> -->
                         Add Friend
                     </a>
                 </li>

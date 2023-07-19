@@ -21,7 +21,23 @@ class AddFriend{
                 if(addNewFriend){
                     const friendList = document.getElementById('friend-list');
                     const friendListItem = document.createElement('li');
-                    friendListItem.textContent = addNewFriend.name;
+                    const image = document.createElement('img');
+                    const aTag = document.createElement('a');
+                    const remove = document.createElement('a');
+                    // friendListItem.textContent = addNewFriend.name;
+                    image.src=addNewFriend.avatar;
+                    friendListItem.appendChild(image);
+
+
+                    aTag.textContent=addNewFriend.name;
+                    friendListItem.appendChild(aTag);
+                    aTag.classList.add('user-friend-name');
+
+
+                    remove.textContent = 'Remove';
+                    friendListItem.appendChild(remove); 
+                    remove.classList.add('remove-add-btn');                   
+
                     friendList.appendChild(friendListItem);
                 }
 

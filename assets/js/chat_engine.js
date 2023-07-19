@@ -8,7 +8,8 @@ class ChatEngine{
 
 // this tell go and connect
 // 1..
-    this.socket = io.connect('http://localhost:5000'); //io - is gloable variable by socket.io file
+    this.socket = io('http://localhost:5000',{transports: ['websocket']});  //io - is gloable variable by socket.io file
+            // io.connect('http://localhost:5000');
 
         if (this.userEmail || this.userName){
             this.connectionHandler();
