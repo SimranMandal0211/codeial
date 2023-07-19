@@ -68,7 +68,7 @@ app.use(session({
     saveUninitialized: false, 
     resave: false,  //true
     cookie: {
-        maxAge: (1000 * 60 * 100)
+        maxAge: (2000 * 60 * 100)
     },
     Store: MongoStore.create({
         mongoUrl: 'mongodb://127.0.0.1/codeial_delopment', 

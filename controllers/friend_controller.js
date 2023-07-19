@@ -4,39 +4,52 @@ const Friendship = require('../models/friendship');
 // Send a friend request
 module.exports.addFriend = async function(request, respond){
   try{
-    console.log('inside friend controller');
-    // console.log('query',request.query);
-    // const { fromUserId, toUserId } = request.query;
-    const fromUserId = request.query.fromUser;
-    const toUserId = request.query.toUser;
-    
-    // create a new friendship request
-    const friendship = new Friendship({
-      from_user: fromUserId,
-      to_user: toUserId
-    });
+      console.log('inside friend controller');
+      // console.log('query',request.query);
+      // const { fromUserId, toUserId } = request.query;
+      const fromUserId = request.query.fromUser;
+      const toUserId = request.query.toUser;
 
-    // save the friendship request
-    await friendship.save();
+      let existingFriend = await Friendship.findOne({
+        to_user: toUserId
+      });
 
-    // add a friend to friendlist of the from_user
-    const fromUser = await User.findById(fromUserId);
-    fromUser.friendships.push(friendship._id);
+      if(!existingFriend) {
+        // create a new friendship request
+        const friendship = new Friendship({
+          from_user: fromUserId,
+          to_user: toUserId
+        });
 
-    const toUser = await User.findById(toUserId);
-    toUser.friendships.push(friendship._id);
+        // save the friendship request
+        await friendship.save();
 
-    await Promise.all([fromUser.save(), toUser.save()]);
+        
+        // add a friend to friendlist of the from_user
+        const fromUser = await User.findById(fromUserId);
+        fromUser.friendships.push(friendship._id);
 
-    if(request.xhr){
-      return respond.status(200).json({
-        message: 'Friend request sent successfully',
-        data: {
-          fromUser: fromUser,
-          toUser: toUser
+        const toUser = await User.findById(toUserId);
+        toUser.friendships.push(friendship._id);
+
+        await Promise.all([fromUser.save(), toUser.save()]);
+
+        if(request.xhr){
+          return respond.status(200).json({
+            message: 'Friend request sent successfully',
+            data: {
+              fromUser: fromUser,
+              toUser: toUser
+            }
+          })
         }
-      })
+
+    }else{
+      console.log('existing friend');
+      return respond.status(400).json({ message: 'This user is already your friend. Do you want to remove them?' });
     }
+
+    
   }catch(err){
     return respond.status(500).json({ error: 'Something wet wrong'});
   }
