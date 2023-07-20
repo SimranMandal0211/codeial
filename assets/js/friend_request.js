@@ -1,45 +1,17 @@
-class AddFriend{
-    constructor(beFriends){
-        this.beFriends = beFriends;
-        this.AddFriend();
-    }
-
-    AddFriend(){
-        $(this.beFriends).click(function(e){
+{
+    let addFriend = function(){
+        let newFriendLink = $('.add-friend-btn');
+        newFriendLink.click(function(e){
             e.preventDefault();
             let self = this;
 
-            console.log('add friend clicked');
-
             $.ajax({
-                type: 'POST',
+                type: 'post',
                 url:$(self).attr('href'),
             }).done(function(data){
-                console.log('Added friend data::: ',data.data.toUser.name);
-
-                let addNewFriend = data.data.toUser;
-                if(addNewFriend){
-                    const friendList = document.getElementById('friend-list');
-                    const friendListItem = document.createElement('li');
-                    const image = document.createElement('img');
-                    const aTag = document.createElement('a');
-                    const remove = document.createElement('a');
-                    // friendListItem.textContent = addNewFriend.name;
-                    image.src=addNewFriend.avatar;
-                    friendListItem.appendChild(image);
-
-
-                    aTag.textContent=addNewFriend.name;
-                    friendListItem.appendChild(aTag);
-                    aTag.classList.add('user-friend-name');
-
-
-                    remove.textContent = 'Remove';
-                    friendListItem.appendChild(remove); 
-                    remove.classList.add('remove-add-btn');                   
-
-                    friendList.appendChild(friendListItem);
-                }
+                let newFriend = newFriendDom(data.data.to_user);
+                $('#user-friends>ul').prepend(newFriend);
+                deleteFriend($(' .remove-friend',newFriend));
 
                 new Noty({
                     theme: 'relax',
@@ -48,10 +20,58 @@ class AddFriend{
                     layout: 'topRight',
                     timeout: 1500
                 }).show();
-
             }).fail(function(err){
                 console.log('error in completing the request');
             });
+        })
+    }
+
+    let newFriendDom = function(friend){
+        return $(`<li id="friend-${ friend._id }">
+                    <img src="${ friend.avatar }" alt="${ friend.name }">
+
+                    <a href="/users/profile/${ friend._id }" class="user-friend-name">${ friend.name }</a>
+
+                    <a href="/friends/friendship/remove/${ friend._id }" class="remove-friend remove-add-btn">Remove</a>
+                </li>`);
+    }
+
+    let deleteFriend = function(deleteLink){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function(data){
+                    console.log('freind request delete:: ',data);
+                    $(`#friend-${ data.data.to_user }`).remove();
+
+                    new Noty({
+                        theme: 'relax',
+                        text: "Friend Deleted !!!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
+                },error: function(error){
+                    console.log(error.responseText);
+                }
+            });
         });
     }
+
+
+    let convertFriendToAjax = function(){
+        $('#user-friends>ul>li').each(function(){
+            let self = $(this);
+            let deleteButton = $(' .remove-friend', self);
+            deleteFriend(deleteButton);
+
+        })
+    }
+
+
+    addFriend();
+    convertFriendToAjax();
 }

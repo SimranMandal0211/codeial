@@ -9,6 +9,6 @@ router.post('/friendship/add', friendController.addFriend);
 // router.post('/friendship/accept', friendController.acceptFriendRequest);
 
 // Remove a friend
-// router.post('/friendship/remove', friendController.removeFriend);
+router.get('/friendship/remove/:id', friendController.removeFriend);
 
 module.exports = router;
