@@ -25,7 +25,9 @@ module.exports.create = async function(request, respond){
             // Similar for comments to fetch the user's id!
             // comment = await comment.populate('user', 'name email').execPopulate();  
 
-            let job = queue.create('email', comment).save(function(err){
+            // commentsMailer.newComment(comment); -----> this line inside comment_email_Worker.js work when job = queue.done().create()
+
+            let job = queue.create('emails', comment).save(function(err){
                 if(err){
                     console.log('Error in sending to the queue', err);
                     return;
