@@ -1,0 +1,4 @@
+[0mGET /users/sign-in [36m304[0m 14.586 ms - -[0m
+[0mGET /favicon.ico [33m404[0m 5.506 ms - 150[0m
+[0mPOST /users/create-Session [36m302[0m 482.967 ms - 46[0m
+[0mGET / [32m200[0m 582.536 ms - 27225[0m

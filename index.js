@@ -1,4 +1,6 @@
 const express = require('express');
+const env = require('./config/environment');
+const  logger = require('morgan');
 
 const bodyParser = require('body-parser');
 
@@ -33,6 +35,9 @@ const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('Chat server is lisening on port 5000');
 
+const path = require('path');
+// example:  path.join(_dirname, env.asset_path, 'scss');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -42,12 +47,12 @@ app.use(express.urlencoded()); //add body-parser
 app.use(cookieParser());
 
 // use assets like css js and images
-app.use(express.static('./assets'));
-
+app.use(express.static(__dirname + env.asset_path));
 
 // make the uploads path available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+app.use(logger(env.morgan.mode, env.morgan.options))
 // app.use(expressLayouts);
 
 // extract style and script from sub pages into the layout
@@ -64,7 +69,7 @@ app.set('views', './views');
 app.use(session({
     name: 'codeial', 
     //Todo change the secret before deployment in production mode
-    secret: 'blashsomething',
+    secret: env.session_cookie_key,
     saveUninitialized: false, 
     resave: false,  //true
     cookie: {
