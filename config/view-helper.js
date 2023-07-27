@@ -9,6 +9,7 @@ module.exports = (app) => {
     console.log('---------------view helper----------- assetPath()',env);
     if(env.name == 'development'){
       console.log('filepath::::', filePath);
+      return filePath;
     }
 
     console.log('---------------view helper production', filePath);
