@@ -13,17 +13,21 @@
 #user-friends ul{
     font-weight: bold;
     overflow: auto;
-    height: 40vh;
+    height: 35vh;
 }
 
 #user-friends li {
-    border: 2px solid orangered;
+    border-top: 2px solid rgba(36, 3, 126, 0.884);
     height: 20%;
     padding: .3rem 0;
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+#user-friends li:hover{
+    box-shadow: 2px 5px 10px rgb(93 93 93);
 }
 
 #user-friends img{
