@@ -7,7 +7,7 @@ module.exports.addFriend = async function(request, respond){
       console.log('inside friend controller');
       // console.log('query',request.query);
       // const { fromUserId, toUserId } = request.query;
-      const fromUserId = request.query.fromUser;
+      const fromUserId = request.user.id;
       const toUserId = request.query.toUser;
 
       let existingFriend = await Friendship.findOne({

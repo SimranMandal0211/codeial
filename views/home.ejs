@@ -48,7 +48,7 @@
 
                     <a class="user-list-name" href="/users/profile/<%= u.id %>"><%= u.name %></a>
 
-                    <a class="add-friend-btn remove-add-btn" href="/friends/friendship/add?toUser=<%=u._id%>&fromUser=<%=locals.user._id%>"> <!-- /?id=<%=u._id%> -->
+                    <a class="add-friend-btn remove-add-btn" href="/friends/friendship/add/?toUser=<%= u._id %>"> <!-- /?id=<%=u._id%> -->
                         Add Friend
                     </a>
                 </li>
