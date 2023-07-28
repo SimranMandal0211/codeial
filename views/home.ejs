@@ -43,6 +43,7 @@
         <h3>Users</h3>
         <ul>
             <% for(u of all_users){ %>
+                <% if(u.id != locals.user.id){ %>
                 <li>
                     <img src="<%= u.avatar %>" alt="<%= u.name %>" width="100"></img>
 
@@ -52,6 +53,7 @@
                         Add Friend
                     </a>
                 </li>
+                <% } %>
             <% } %>
         </ul>
     </section>
