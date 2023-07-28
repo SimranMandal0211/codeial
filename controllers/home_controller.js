@@ -17,6 +17,9 @@ module.exports.home = async function(request, respond){
 
     // populate the user of each post
     try{
+
+        const loggedInUserId = request.user;
+
         let posts = await Post.find({})
         .sort('-createdAt')
         .populate('user')
@@ -41,7 +44,7 @@ module.exports.home = async function(request, respond){
         
         let users = await User.find({})
 
-        let friendlist = await Friendship.find({})
+        let friendlist = await Friendship.find({ from_user: loggedInUserId })
         .populate({
             path: 'to_user',
             populate: {
