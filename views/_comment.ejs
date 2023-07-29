@@ -14,7 +14,6 @@
             <% } %>
             <p class="comment-user-name"> <%= comment.user.name %> </p>
             <p class="comment-timing"><%= comment.createdAt.toLocaleDateString() %></p>
-            <p class="post-timing"><%= postCommentTime.getTimeAgo(comment.createdAt) %></p>
             
             <small>
                 
