@@ -13,7 +13,8 @@
                 <img src="<%= comment.user.avatar %>" alt="<%= comment.user.name %>" width="100">
             <% } %>
             <p class="comment-user-name"> <%= comment.user.name %> </p>
-            <p class="comment-timing">comment timing</p>
+            <p class="comment-timing"><%= comment.createdAt.toLocaleDateString() %></p>
+            <p class="post-timing"><%= postCommentTime.getTimeAgo(comment.createdAt) %></p>
             
             <small>
                 
