@@ -21,16 +21,13 @@ const development = {
     db: 'codeial_devlopment',
     smtp: {
         service: 'gmail',
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
         auth: {
-            user: 'simranmandal',
-            pass: 'r@nS!m'
-        }
+            user: 'simran2mandal@gmail.com',
+            pass: 'oanmswtdwcyfaisu'  
+        }   
     },
-    google_client_id: "860477223777-jd1g5onicvapeicb8a2a74fqi2i4isjc.apps.googleusercontent.com",
-    google_client_secret: "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",
+    google_client_id: "860477223777-46pjft5nj0kjivbpgesn1jvg35muh9r0.apps.googleusercontent.com",
+    google_client_secret: "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",
     google_call_back_url: "http://localhost:8000/users/auth/google/callback",
     jwt_secret: 'codeial',
     morgan: {
@@ -47,9 +44,6 @@ const production = {
     db: process.env.CODEIAL_DB,
     smtp: {
         service: 'gmail',
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
         auth: {
             user: process.env.CODEIAL_GMAIL_USERNAME,
             pass: process.env.CODEIAL_GMAIL_PASSWORD

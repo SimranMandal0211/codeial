@@ -4,6 +4,16 @@ const path = require('path');
 const env = require('../config/environment');
 let transporter = nodemailer.createTransport(env.smtp);
 
+// _________trial mail sending using ethereal__________
+// let transporter = nodemailer.createTransport({
+//     host: 'smtp.ethereal.email',
+//     port: 587,
+//     auth: {
+//         user: 'lois.leuschke64@ethereal.email',
+//         pass: 'sbprw84bNwcXcSmYqv'
+//     }
+// })
+
 let renderTemplate = (data, relativePath) => {
     let mailHTML;
     ejs.renderFile(
