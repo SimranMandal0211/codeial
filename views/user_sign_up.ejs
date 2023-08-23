@@ -5,8 +5,17 @@
         <h1>Sign Up</h1>
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+
+        <span class="signUp_pswdBox">
+            <input type="password" name="password" placeholder="Password" id="signUpPswd" required />
+            <button onclick="togglePassword('signUpPswd')"><i class="fa-regular fa-eye-slash"></i></button>
+        </span>
+
+        <span class="signUp_pswdBox">
+            <input type="password" name="confirm_password" placeholder="Confirm Password" id="signUp_NewPswd" required />
+            <button onclick="togglePassword('signUp_NewPswd')"><i class="fa-regular fa-eye-slash"></i></button>
+        </span>
+
         <input class="signBtn" type="submit" value="Sign Up"></input>
         <div class="flex">
             <div class="google-icon">
@@ -17,3 +26,5 @@
     </form>
 
 </div>
+
+<script src="/js/pswd-hideShow-toggler.js"></script>
