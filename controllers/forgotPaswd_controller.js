@@ -1,5 +1,6 @@
 const User = require('../models/user'); 
 const ForgotPswd = require('../models/forgotPassword');
+const nodeMailer = require('../config/nodemailer');
 
 module.exports.forgot = function(request, respond){
     // return respond.end('<h1>forgot password</h1>');
@@ -43,12 +44,23 @@ module.exports.setEmail = async function(request, respond){
       
         // ---------- Send the reset password link to the user's email (you can implement this part)
       
-        // return respond.render('forgot_check-email', { 
-        //     email: email,
-        //     title: "forgot_check-email"
-        // });  -----------
+       const mailOptions = {
+        from: 'simran2mandal@gmail.com',
+        to: email,
+        subject: 'Reset Password Link',
+        html: `<p>Click <a href="http://localhost:5000/forgotPswd/reset-password/${accessToken}" >here</a> to reset your password. </p>`
+       };
 
-        return respond.render('forgot_change-password',{
+       nodeMailer.transporter.sendMail(mailOptions, function(err, info){
+            if(err){
+                console.log(err);
+            }else{
+                console.log('Email sent: ',info.respond);
+            }
+       });
+
+        console.log('email --->',email);
+        return respond.render('forgot_check-email',{
             title: 'Codeial | change password',
             token: accessToken,
             email: email
@@ -64,6 +76,7 @@ module.exports.setEmail = async function(request, respond){
 
 module.exports.getResetPaswd = async function(request, respond){
     try {
+        console.log('getReset Link--->',request);
         const token = request.params.token;
         console.log('token',token);
         // Find the forgot password document with the provided token
@@ -75,10 +88,15 @@ module.exports.getResetPaswd = async function(request, respond){
             });
         }
 
+        const user = await User.findById(forgotPswdToken.user);
+        if (!user) {
+            return respond.status(404).send('User not found');
+        }
 
         return respond.render('forgot_change-password', {
             title: 'Codeial | change password',
-            token: token
+            token: token,
+            email: user.email
         });
     } catch (err) {
       console.log('Internal server error: ',err);

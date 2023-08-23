@@ -23,11 +23,11 @@ const development = {
         service: 'gmail',
         auth: {
             user: 'simran2mandal@gmail.com',
-            pass: 'oanmswtdwcyfaisu'  
+            pass: process.env.CODEIAL_devlopment_smtp_pswd  
         }   
     },
-    google_client_id: "860477223777-46pjft5nj0kjivbpgesn1jvg35muh9r0.apps.googleusercontent.com",
-    google_client_secret: "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",
+    google_client_id: process.env.CODEIAL_devlopment_google_client_id,
+    google_client_secret: process.env.CODEIAL_devlopement_google_client_secret,
     google_call_back_url: "http://localhost:8000/users/auth/google/callback",
     jwt_secret: 'codeial',
     morgan: {
