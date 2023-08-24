@@ -1,7 +1,7 @@
 <!-- Only add variable parts -->
 
-<link rel="stylesheet" href="/css/home.css">
-<link rel="stylesheet" href="/css/_friend.css">
+<link rel="stylesheet" href="<%= assetPath('css/home.css') %>" >
+<link rel="stylesheet" href="<%= assetPath('css/_friend.css') %>" >
 
 <h1>Codeial / <%= title %></h1>
 
@@ -62,10 +62,15 @@
 </div>
 
 
-<script src="/js/home_post_comment.js"></script>
-<script src="/js/home_post.js"></script>
+<!-- <script src="/js/home_post_comment.js"></script> -->
+<script src="<%= assetPath('js/home_post_comment.js') %>"></script>
 
-<script src="js/toggle_likes.js"></script>
+<!-- <script src="/js/home_post.js"></script> -->
+<script src="<%= assetPath('js/home_post.js') %>"></script>
+
+
+<script src="<%= assetPath('js/toggle_likes.js') %>"></script>
+<!-- <script src="js/toggle_likes.js"></script> -->
 <script>
     $('.toggle-like-button').each(function(){
         let self = this;
@@ -73,14 +78,15 @@
     });
 </script>
 
-<script src="/js/friend_request.js"></script>
+<!-- <script src="/js/friend_request.js"></script> -->
+<script src="<%= assetPath('js/friend_request.js') %>"></script>
 
 
 
 <!-- socket.io link  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js" integrity="sha512-Z6C1p1NIexPj5MsVUunW4pg7uMX6/TT3CUVldmjXx2kpip1eZcrAnxIusDxyFIikyM9A61zOVNgvLr/TGudOQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="/js/chat_engine.js"></script>
+<script src="<%= assetPath('js/chat_engine.js') %>"></script>
 <% if(locals.user){%>
 <script>
     new ChatEngine('chatbox', '<%= locals.user.email %>', '<%= locals.user.name %>');
@@ -88,4 +94,5 @@
 <% } %>
 
 <!-- for post and comment timing -->
-<script src="../assets/js/post_comment_timing.js"></script>
+<!-- <script src="../assets/js/post_comment_timing.js"></script> -->
+<script src="<%= assetPath('js/post_comment_timing.js') %>"></script>

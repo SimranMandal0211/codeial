@@ -14,7 +14,7 @@ const port = 8000;
 
 // set up the layouts
 const expressLayouts = require('express-ejs-layouts');
-app.use(expressLayouts);
+// app.use(expressLayouts);
 
 // setup database
 const db = require('./config/mongoose');
@@ -49,12 +49,13 @@ app.use(cookieParser());
 
 // use assets like css js and images
 app.use(express.static(__dirname + env.asset_path));
+app.use(express.static(__dirname + '/public/assets'));
 
 // make the uploads path available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-app.use(logger(env.morgan.mode, env.morgan.options))
-// app.use(expressLayouts);
+app.use(logger(env.morgan.mode, env.morgan.options));
+app.use(expressLayouts);
 
 // extract style and script from sub pages into the layout
 app.set('layout extractStyles', true);
