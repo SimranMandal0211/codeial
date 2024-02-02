@@ -8,7 +8,7 @@
             $.ajax({
                 type: 'post',
                 url: '/posts/create',
-                data: newPostform.serialize(),
+                data: newPostform.serialize(), //serialize - means convert data to JSON 
                 success: function(data){
                     let newPost = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);

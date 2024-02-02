@@ -15,7 +15,7 @@ router.post('/create', usersController.create);
 
 // router.post('/create-session', usersController.createSession);       //----Manual authentication----;
         // use passport as a middleware to authenticate
-router.post('/create-session', passport.authenticate(
+router.post('/create-Session', passport.authenticate(
         'local',
         {failureRedirect: '/users/sign-in', failureFlash: 'Invalid Username/ Password'}
     ),usersController.createSession); 
