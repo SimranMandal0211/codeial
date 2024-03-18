@@ -52,6 +52,8 @@ class PostComments{
                         
                     }).show();
 
+                    $(self)[0].reset();
+
                 }, error: function(error){
                     console.log(error.responseText);
                 }
