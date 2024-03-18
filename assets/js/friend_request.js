@@ -9,7 +9,7 @@
                 type: 'post',
                 url:$(self).attr('href'),
             }).done(function(data){
-                let newFriend = newFriendDom(data.data.to_user);
+                let newFriend = newFriendDom(data.data.toUser);
                 $('#user-friends>ul').prepend(newFriend);
                 deleteFriend($(' .remove-friend',newFriend));
 
