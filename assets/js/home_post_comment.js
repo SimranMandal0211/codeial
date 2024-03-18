@@ -66,9 +66,9 @@ class PostComments{
 
     newCommentDom(comment){
 
-        // let Time = new PostCommentTime(post.createdAt);
-        // let commentTime = Time.getTimeAgo(post.createdAt);
-        // console.log(commentTime);
+        let Time = new PostCommentTime(comment.createdAt);
+        let commentTime = Time.getTimeAgo(comment.createdAt);
+        console.log(commentTime);
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
         
         return $(`<li class="each-comment" id="comment-${ comment._id }">
@@ -84,7 +84,7 @@ class PostComments{
                                 <img src="${ comment.user.avatar }" alt="${ comment.user.name }" width="100">
                             
                             <p class="comment-user-name"> ${ comment.user.name } </p>
-                            <p class="comment-timing">${ comment.createdAt }</p>
+                            <p class="comment-timing">${ commentTime }</p>
                             
                             <small>
                                 

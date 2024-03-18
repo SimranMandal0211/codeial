@@ -38,9 +38,9 @@
     }
     // method to create a post in DOM
     let newPostDom = function(post){
-        // let Time = new PostCommentTime(post.createdAt);
-        // let postTime = Time.getTimeAgo(post.createdAt);
-        // console.log(postTime);
+        let Time = new PostCommentTime(post.createdAt);
+        let postTime = Time.getTimeAgo(post.createdAt);
+        console.log(postTime);
 
         return $(`<li class="each-post" id="post-${ post._id }"> 
                     <p class="each-post-text">
@@ -53,7 +53,7 @@
                             
                             <span>
                                 <p class="post-user-name"> ${ post.user.name } </p>
-                                <p class="post-timing">${ post.createdAt }</p>
+                                <p class="post-timing">${ postTime }</p>
                             </span>
                         </div>
                         
