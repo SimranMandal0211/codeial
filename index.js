@@ -30,7 +30,6 @@ const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
 
 const MongoStore = require('connect-mongo');
-const MongoDBStore = require('connect-mongodb-session')(session);
 
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
@@ -71,10 +70,6 @@ app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-const store = new MongoDBStore({
-    uri: process.env['MONGODB_CONNECT_URL'],
-    collection: 'session'
-});
 
 // mongo store is used to store session cookie in the db
 app.use(session({
@@ -86,14 +81,13 @@ app.use(session({
     cookie: {
         maxAge: (2000 * 60 * 100)
     },
-    // Store: MongoStore.create({
-    //     // mongoUrl: 'mongodb://127.0.0.1/codeial_delopment', 
-    //     mongoUrl: process.env['MONGODB_CONNECT_URL'],
-    //     autoRemove: 'disable'
-    // },function(err){
-    //     console.log(err || 'connect-mongodb setup OK');
-    // })
-    Store: store
+    Store: MongoStore.create({
+        // mongoUrl: 'mongodb://127.0.0.1/codeial_delopment', 
+        mongoUrl: process.env['MONGODB_CONNECT_URL'],
+        autoRemove: 'disable'
+    },function(err){
+        console.log(err || 'connect-mongodb setup OK');
+    })
 }));
 
 
