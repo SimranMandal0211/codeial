@@ -30,7 +30,13 @@ const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
 
 // const MongoStore = require('connect-mongo');
-const MongoDBStore = require('connect-mongodb-session')(session);
+const redis = require('redis');
+const RedisStore = require('connect-redis').default;
+const RedisClient = redis.createClient({
+    url: "redis://redis:6379",
+});
+RedisClient.connect().catch(console.error);
+// const MongoDBStore = require('connect-mongodb-session')(session);
 
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
@@ -71,14 +77,19 @@ app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-const store = new MongoDBStore({
-    uri: process.env['MONGODB_CONNECT_URL'], 
-    collection: 'sessions',
-    autoRemove: 'disable'
-},function(err){
-        console.log(err || 'connect-mongodb setup OK');
-    }
-);
+let redisStore = new RedisStore({
+    client: RedisClient,
+    prefix: "prefix:",
+});
+
+// const store = new MongoDBStore({
+//     uri: process.env['MONGODB_CONNECT_URL'], 
+//     collection: 'sessions',
+//     autoRemove: 'disable'
+// },function(err){
+//         console.log(err || 'connect-mongodb setup OK');
+//     }
+// );
 
 // mongo store is used to store session cookie in the db
 app.use(session({
@@ -97,7 +108,8 @@ app.use(session({
     // },function(err){
     //     console.log(err || 'connect-mongodb setup OK');
     // })
-    store: store
+    store: redisStore
+    // store: store
 }));
 
 
