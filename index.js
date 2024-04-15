@@ -97,7 +97,6 @@ app.use(session({
     // },function(err){
     //     console.log(err || 'connect-mongodb setup OK');
     // })
-    // store: redisStore
     store: store
 }));
 
