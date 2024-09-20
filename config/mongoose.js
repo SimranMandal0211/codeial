@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 
+mongoose.set('strictQuery', true); 
+
 // mongoose.connect(`mongodb://0.0.0.0/${env.db}`);
 mongoose.connect(process.env.MONGODB_CONNECT_URL, {
     useNewUrlParser: true,
