@@ -129,3 +129,10 @@
 [0mGET /users/sign-in [32m200[0m 44.371 ms - 3158[0m
 [0mPOST /users/create-Session [36m302[0m 134.396 ms - 46[0m
 [0mGET / [32m200[0m 293.640 ms - 14226[0m
+[0mGET /users/sign-up [32m200[0m 1145.217 ms - 3426[0m
+[0mGET /favicon.ico [0m-[0m - ms - -[0m
+[0mGET /users/sign-in [32m200[0m 471.708 ms - 3158[0m
+[0mGET /favicon.ico [0m-[0m - ms - -[0m
+[0mPOST /users/create-Session [36m302[0m 203.349 ms - 46[0m
+[0mGET / [32m200[0m 2616.665 ms - 14844[0m
+[0mGET /favicon.ico [0m-[0m - ms - -[0m
