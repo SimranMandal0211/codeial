@@ -9,7 +9,8 @@ mongoose.set('strictQuery', true);
 // mongoose.connect(`mongodb://0.0.0.0/${env.db}`);
 mongoose.connect(process.env.MONGODB_CONNECT_URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 20000,
 });
 
 // mongoose.connect(`mongodb://0.0.0.0/${env.db}`);
