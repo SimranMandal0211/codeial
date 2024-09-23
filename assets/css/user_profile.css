@@ -51,3 +51,21 @@
     width: 100%;
     padding-left: 1rem;
 }
+
+.delete-account-btn{
+    margin: .8rem;
+    padding: 1rem;
+    width: 60%;
+    padding: .6rem;
+    font-weight: bold;
+    font-size: 1rem;
+    color: white;
+    background: #f81207;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-account-btn:hover{
+    background-color: #f20e02;
+    border: #e30e02;
+}

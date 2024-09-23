@@ -188,3 +188,24 @@ module.exports.update = async function(request, respond){
             return respond.status(401).send('Unauthorized');
         }
     }
+
+module.exports.deleteAccount = function(request, respond){
+    const userId = request.user._id;
+    console.log('deleting account---->',userId);
+
+    User.findByIdAndDelete(userId).then((user) => {
+        if(user.avatar && user.avatar !== '../assets/images/default_image.jpg'){
+            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+        }
+        console.log('User account deleted succesfully.');
+        request.logout(function(err){
+            if(err){
+                console.log('Error logging out ',err);
+            }
+            return respond.redirect('/');
+        });
+    }).catch((err) => {
+        console.log('Error in deleting user account', err);
+        return respond.redirect('back');
+    });
+};

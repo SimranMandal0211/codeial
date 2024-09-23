@@ -12,6 +12,7 @@ router.get('/sign-in', usersController.signIn);
 router.get('/sign-out', usersController.destroySession);
 
 router.post('/create', usersController.create);
+router.post('/delete-account', usersController.deleteAccount);
 
 // router.post('/create-session', usersController.createSession);       //----Manual authentication----;
         // use passport as a middleware to authenticate
