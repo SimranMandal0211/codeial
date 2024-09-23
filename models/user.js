@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     avatar:{
-        type: String
+        type: String,
+        default: '../assets/images/default_image.jpg'
     },
     friendships: [
         { 

@@ -65,6 +65,8 @@ module.exports.create = function(request, respond){
     User.findOne({email: request.body.email}).then((user) => {
 
         if(!user){
+            let userData = request.body;
+            userData.avatar = userData.avatar || '../assets/images/default_image.jpg';
             User.create(request.body).then((user) => {
                 return respond.redirect('/users/sign-in');
             }).catch((err) => {
