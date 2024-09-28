@@ -33,12 +33,23 @@ module.exports.destroy =  async function(request, respond){
         // .id means converting the object id into string
         if(post.user == request.user.id){
 
+            // Deleting all likes associated with the post
             await Like.deleteMany({likeable: post, onModel: 'Post'});
-            await Like.deleteMany({_id: {$in: post.comments}});
+            // await Like.deleteMany({_id: {$in: post.comments}});
 
-            
-            post.remove();
+            // find all comment associated with the post
+            console.log('deleting posts comment like----->', request.params);
+            let comments = await Comment.find({ post: request.params.id});
+            // delete all the likes associated with each comment
+            for (let comment of comments) {
+                await Like.deleteMany({ likeable: comment._id,onModel: 'Comment' });
+            }
+
+            // Delete all comments related to the post
             await Comment.deleteMany({post: request.params.id});
+
+            // Delete the post itself
+            post.remove();
             
             if(request.xhr){
                 return respond.status(200).json({
