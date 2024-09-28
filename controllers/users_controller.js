@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports.profile = function(request, respond){
     // return respond.end('<h1>User Profile</h1>');
-
+    console.log('user detail---->', request.user);
     User.findById(request.params.id, function(err, user){
         return respond.render('user_profile', {
             title: "user_profile",
@@ -65,9 +65,12 @@ module.exports.create = function(request, respond){
     User.findOne({email: request.body.email}).then((user) => {
 
         if(!user){
-            let userData = request.body;
-            userData.avatar = userData.avatar || '../assets/images/default_image.jpg';
-            User.create(request.body).then((user) => {
+            let userData = {
+                ...request.body, // Copy all fields from request.body
+                avatar: '/public/assets/images/default-image/default-1b78d46e4e.jpg' // Default avatar
+            };
+
+            User.create(userData).then(() => {
                 return respond.redirect('/users/sign-in');
             }).catch((err) => {
                 console.log('error in creating user while signing up ',err);
@@ -194,9 +197,7 @@ module.exports.deleteAccount = function(request, respond){
     console.log('deleting account---->',userId);
 
     User.findByIdAndDelete(userId).then((user) => {
-        if(user.avatar && user.avatar !== '../assets/images/default_image.jpg'){
-            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
-        }
+        
         console.log('User account deleted succesfully.');
         request.logout(function(err){
             if(err){

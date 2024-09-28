@@ -26,7 +26,7 @@ header h1{
     border-radius: 50%;
     height: 3rem;
     width: 3rem;
-    /* border: 2px solid rgba(0, 0, 0, 0.717); */
+    border: 2px solid rgba(0, 0, 0, 0.717);
     margin-right: .5rem;
 }
 
