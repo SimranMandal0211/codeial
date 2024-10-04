@@ -65,7 +65,6 @@ module.exports.removeFriend = async function(request, respond){
     const friendDelete = await Friendship.findById(request.params.id);
 
     if(friendDelete){
-      friendDelete.remove();
       const userWithFriend = await User.find({friendships: request.params.id})
 
       for (const user of userWithFriend) {
@@ -73,7 +72,8 @@ module.exports.removeFriend = async function(request, respond){
         await user.save();
       }
 
-
+      friendDelete.remove();
+      
       if (request.xhr){
         return respond.status(200).json({
             data: {

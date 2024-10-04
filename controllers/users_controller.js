@@ -1,4 +1,9 @@
 const User = require('../models/user');
+const Like = require('../models/like');
+const Post = require('../models/post');
+const Comment = require('../models/comment');
+const Friendship = require('../models/friendship');
+
 const fs = require('fs');
 const path = require('path');
 
@@ -192,21 +197,83 @@ module.exports.update = async function(request, respond){
         }
     }
 
-module.exports.deleteAccount = function(request, respond){
+module.exports.deleteAccount = async function(request, respond){
     const userId = request.user._id;
-    console.log('deleting account---->',userId);
 
-    User.findByIdAndDelete(userId).then((user) => {
+    try{
+        // find posts by the user
+        const userPosts = await Post.find({ user: userId });
+
+        // delete likes on user's post
+        for(let post of userPosts){
+            await Like.deleteMany({ likeable: post._id, onModel: 'Post' });
+
+            // Find comments on the post (made by any user)
+            const postComments = await Comment.find({ post: post._id });
+
+            // Delete likes on the comments associated with the post
+            for(let comment of postComments){
+                await Like.deleteMany({ likeable: comment._id, onModel: 'Comment' });
+
+                comment.remove();
+            }
+
+            // Delete all comments on the post (made by any user)
+            await Comment.deleteMany({ post: post._id });
+          
+            post.remove();
+            console.log('Deleted user\'s Post.');
+        }
+
+        // Delete all comments made by the user on other's post
+        await Comment.deleteMany({ user: userId });
+        console.log('Deleted user\'s comments. ');
+
+        // Delete all likes made by the user........
+        await Like.deleteMany({ user: userId });
+        console.log('Deleted user\'s own likes. ');
+
+        // Remove User A from friendships
+        // Find friendships to delete
+        const friendshipsToDelete = await Friendship.find({
+            $or: [{ from_user: userId }, { to_user: userId }]
+        });
         
-        console.log('User account deleted succesfully.');
+        // Check if any friendships are found
+        if (friendshipsToDelete.length > 0) {
+            // Extract the friendship IDs from the documents
+            const friendshipIdsToDelete = friendshipsToDelete.map(friendship => friendship._id);
+
+            // Find users that have these friendships
+            const usersWithFriendships = await User.find({ friendships: { $in: friendshipIdsToDelete } });
+            
+            // Loop through users and remove the friendships from their friendships array
+            for (const user of usersWithFriendships) {
+                user.friendships.pull(...friendshipIdsToDelete); // Spread the IDs for pulling
+                await user.save(); // Save the updated user document
+            }
+
+            // Delete the friendships after removing from users
+            await Friendship.deleteMany({ _id: { $in: friendshipIdsToDelete } });
+            console.log('Delete user\'s friend');
+        }
+
+
+        // .....Delete the user account.....
+        await User.findByIdAndDelete(userId);
+        console.log('User account deleted successfully');
+
+        // Logout and redirect
         request.logout(function(err){
             if(err){
                 console.log('Error logging out ',err);
             }
             return respond.redirect('/');
         });
-    }).catch((err) => {
+
+
+    }catch(err) {
         console.log('Error in deleting user account', err);
         return respond.redirect('back');
-    });
+    };
 };
