@@ -1,8 +1,8 @@
 .each-post{
     box-shadow: 2px 5px 10px rgb(93 93 93);
-    width: 90%;
+    width: 100%;
     margin-bottom: 1rem;
-    padding: .5rem;
+    padding: 1rem;
     /* border: 2px solid red; */
     /* background-color: palevioletred; */
     background-color: white;

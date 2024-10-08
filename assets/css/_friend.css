@@ -17,13 +17,14 @@
 }
 
 #user-friends li {
-    border-top: 2px solid rgba(36, 3, 126, 0.884);
+    box-shadow: 0px 1px 10px rgb(122, 153, 160);
     height: 20%;
-    padding: .3rem 0;
+    padding: .5rem;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    color: black;
 }
 
 #user-friends li:hover{

@@ -15,9 +15,9 @@
 } */
 
 .comment-user{
-    width: 50%;
+    width: 60%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding-top: .5rem;
     font-size: 1rem;
     font-weight: bold;
@@ -28,7 +28,7 @@
     height: 2rem;
     width: 2rem;
     /* width: 100%; */
-    border: 2px solid rgba(0, 0, 0, 0.717);
+    border: 2px solid rgba(195, 195, 195, 0.72);
 }
 
 .comment-user .comment-user-name{
