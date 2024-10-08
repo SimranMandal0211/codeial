@@ -31,7 +31,7 @@
 }
 
 #user-friends img{
-    border: 2px solid green;
+    border: 2px solid rgba(195, 195, 195, 0.72);
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
