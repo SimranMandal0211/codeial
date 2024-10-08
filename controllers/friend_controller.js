@@ -33,7 +33,7 @@ module.exports.addFriend = async function(request, respond){
         toUser.friendships.push(friendship._id);
 
         await Promise.all([fromUser.save(), toUser.save()]);
-
+        console.log('Friend Added');
         if(request.xhr){
           return respond.status(200).json({
             message: 'Friend request sent successfully',
@@ -73,7 +73,7 @@ module.exports.removeFriend = async function(request, respond){
       }
 
       friendDelete.remove();
-      
+      console.log('Friend Deleted');
       if (request.xhr){
         return respond.status(200).json({
             data: {

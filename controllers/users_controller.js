@@ -72,7 +72,7 @@ module.exports.create = function(request, respond){
         if(!user){
             let userData = {
                 ...request.body, // Copy all fields from request.body
-                avatar: '/public/assets/images/default-image/default-1b78d46e4e.jpg' // Default avatar
+                avatar: '/images/default-image/default-1b78d46e4e.jpg' // Default avatar
             };
 
             User.create(userData).then(() => {

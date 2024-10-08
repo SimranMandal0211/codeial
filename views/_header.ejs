@@ -9,7 +9,7 @@
         <% if(locals.user){ %> 
             <li>
                 <p class="profile-img">
-                    <img src="<%= user.avatar %>" alt="<%= user.name %>" width="100"></img>
+                    <img src="<%= user.avatar || '/images/default-image/default-1b78d46e4e.jpg' %>" alt="<%= user.name %>" width="100"></img>
                 
                     <a href="/users/profile/<%= user.id %>"><%= user.name %></a>
                 </p>

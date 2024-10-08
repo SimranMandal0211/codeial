@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
 const AVATAR_PATH = path.join('/uploads/users/avatars');
-const DEFAULT_PATH = '/public/assets/images/default-image/default-1b78d46e4e.jpg';
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -21,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{
         type: String,
-        default: DEFAULT_PATH 
+        default: '/images/default-image/default-1b78d46e4e.jpg'
     },
     friendships: [
         { 

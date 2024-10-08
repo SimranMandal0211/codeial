@@ -38,7 +38,14 @@
 }
 
 #user-friends a{
-    color: black;
+    /* color: black; */
     font-size: 1rem;
+}
+
+.user-friend-name{
+    color: black;
+}
+.remove-friend{
+    color: white;
 }
 
