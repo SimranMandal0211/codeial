@@ -1,6 +1,7 @@
 const Friendship = require('../models/friendship');
 const Post = require('../models/post');
 const User = require('../models/user');
+const moment = require('moment');
 
 module.exports.home = async function(request, respond){
     // console.log(req.cookies);
@@ -40,6 +41,18 @@ module.exports.home = async function(request, respond){
         // .populate('comments')
         .populate('likes');   //for post
 
+        posts = posts.map(post => {
+            let postTime = moment(post.createdAt).fromNow();
+            post.relativeTime = postTime;
+
+            post.comments = post.comments.map(comment => {
+                let commentTime = moment(comment.createdAt).fromNow();
+                comment.relativeTime = commentTime;
+                return comment;
+            });
+
+            return post;
+        });
         // console.log('qqqq',posts[0].comments);
         
         let users = await User.find({})

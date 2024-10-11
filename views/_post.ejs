@@ -14,7 +14,7 @@
             <% } %>
              <span>
                 <p class="post-user-name"> <%= post.user.name %> </p>
-                <p class="comment-timing"><%= post.createdAt.toLocaleDateString() %></p>
+                <p class="comment-timing"> <%= post.relativeTime %> </p>      
             </span>
         </div>
         
