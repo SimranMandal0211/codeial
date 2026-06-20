@@ -1,7 +1,9 @@
-const express = require('express');
-const env = require('./config/environment');
+
 const dotenv = require('dotenv');
 dotenv.config();
+
+const express = require('express');
+const env = require('./config/environment');
 
 const  logger = require('morgan');
 

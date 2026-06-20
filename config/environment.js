@@ -61,7 +61,9 @@ const production = {
 
 
 
-module.exports = eval(process.env.CODEIAL_ENVIRONMENT) == undefined ? development : eval(process.env.CODEIAL_ENVIRONMENT);
+module.exports = process.env.CODEIAL_ENVIRONMENT === 'production'
+    ? production
+    : development;
 
 // We will be using Morgan as a middleware
 // To save the logs in the file we will be using a middleware that will put those logs in the file but also that file can grow huge, to prevent in growing huge either we create a backup for weekly logs or we keep on deleting the older logs. 

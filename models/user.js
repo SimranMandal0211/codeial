@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const multer = require('multer');
 const path = require('path');
+const bcrypt = require('bcrypt');
+
 const AVATAR_PATH = path.join('/uploads/users/avatars');
 
 const userSchema = new mongoose.Schema({
@@ -45,6 +47,17 @@ let storage = multer.diskStorage({
 userSchema.statics.uploadedAvatar = multer({storage: storage}).single('avatar');
 userSchema.statics.avatarPath = AVATAR_PATH;
 
+
+userSchema.pre('save', async function(next){
+    if (!this.isModified('password')) return next();
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
 
 const User = mongoose.model('User', userSchema);
 
