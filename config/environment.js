@@ -17,19 +17,19 @@ const accessLogStream = rfs.createStream('access.log', {
 const development = {
     name: 'development',
     asset_path: '/assets',
-    session_cookie_key: 'blashsomething',
+    session_cookie_key: process.env.CODEIAL_development_session_cookie_key,
     db: 'codeial_devlopment',
     smtp: {
         service: 'gmail',
         auth: {
-            user: 'simran2mandal@gmail.com',
-            pass: process.env.CODEIAL_devlopment_smtp_pswd  
+            user: process.env.CODEIAL_development_email_username,
+            pass: process.env.CODEIAL_development_smtp_pswd  
         }   
     },
-    google_client_id: process.env.CODEIAL_devlopment_google_client_id,
-    google_client_secret: process.env.CODEIAL_devlopement_google_client_secret,
+    google_client_id: process.env.CODEIAL_development_google_client_id,
+    google_client_secret: process.env.CODEIAL_development_google_client_secret,
     google_call_back_url: "http://localhost:8000/users/auth/google/callback",
-    jwt_secret: 'codeial',
+    jwt_secret: process.env.CODEIAL_development_jwt_secret,
     morgan: {
         mode: 'dev',
         options: {stream: accessLogStream}
