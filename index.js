@@ -92,13 +92,6 @@ app.use(session({
     cookie: {
         maxAge: (2000 * 60 * 100)
     },
-    // Store: MongoStore.create({
-    //     // mongoUrl: 'mongodb://127.0.0.1/codeial_delopment', 
-    //     mongoUrl: process.env['MONGODB_CONNECT_URL'],
-    //     autoRemove: 'disable'
-    // },function(err){
-    //     console.log(err || 'connect-mongodb setup OK');
-    // })
     store: store
 }));
 

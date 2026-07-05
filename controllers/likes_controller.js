@@ -5,9 +5,10 @@ const Comment = require('../models/comment');
 
 module.exports.toggleLike = async function(request, respond){
     try{
-        // likes/toggle/?id = abcdef&type=Post
+        
+        // /likes/toggle/?id=<%=post._id%>&type=Post
+        // /likes/toggle/?id=<%=comment._id%>&type=Comment
 
-        // likes/toggle/?id=abcdef&type=Post
         let likeable;
         let deleted = false;
 

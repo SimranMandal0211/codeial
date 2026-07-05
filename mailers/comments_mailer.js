@@ -1,13 +1,8 @@
 const nodeMailer = require('../config/nodemailer');
 
-// newComment = function(){
 
-// }
-// modeule.exports = newComment
-
-// this is another way of exporting a method
 exports.newComment = (comment) => {
-    console.log('inside newComment Mailer', comment);
+    // console.log('inside newComment Mailer', comment);
     let htmlString = nodeMailer.renderTemplate({comment: comment}, '/comments/new_comment.ejs');
 
     nodeMailer.transporter.sendMail({

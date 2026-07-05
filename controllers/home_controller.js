@@ -4,18 +4,7 @@ const User = require('../models/user');
 const moment = require('moment');
 
 module.exports.home = async function(request, respond){
-    // console.log(req.cookies);
-    // res.cookie('user_id', 25);
-
-    // Post.find({}, function(err, posts){
-    //     return res.render('home', {
-    //         title: "Codeial | Home",
-    //         posts:  posts
-
-
-    //     });
-    // });
-
+    
     // populate the user of each post
     try{
 
@@ -23,15 +12,13 @@ module.exports.home = async function(request, respond){
 
         let posts = await Post.find({})
         .sort('-createdAt')
-        .populate('user')
+        .populate('user')  //<post.user.name> - will crash if we don't populate
         .populate({
             path: 'comments',
             populate: {
                 path: 'user'
             },
-            // populate: { //for comment
-            //     path: 'likes'
-            // }
+           
         }).populate({
             path: 'comments',
             populate: {
@@ -77,12 +64,3 @@ module.exports.home = async function(request, respond){
         console.log('Error', err);
     }
 }
-
-// module.exports.actionName = function(req, res){}
-
-// using then
-// Post.find({}).populate('comments').then(function());
-
-// let posts = Post.find({}).populate('comments').exec();
-
-// posts.then()

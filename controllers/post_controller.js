@@ -3,15 +3,16 @@ const Comment = require('../models/comment');
 const Like = require('../models/like');
 
 module.exports.create = async function(request, respond){
-    
+    // console.log("Post Controller reauest----------",request);
+
     try{    
         let post = await Post.create({
             content: request.body.content,
             user: request.user._id
         });
-        if(request.xhr){
+        if(request.xhr){    //if X-Requested-With = XMLHttpRequest then request.xhr is true
             post = await post.populate('user', 'name avatar');
-            return respond.status(200).json({
+            return respond.status(200).json({ //sends the HTTP response back over the same TCP connection the request came in on. Express doesn't know or care who sent the request — it just writes the response to that same socket, and whatever made the original HTTP call receives it.
                 data: {
                     post: post
                 },

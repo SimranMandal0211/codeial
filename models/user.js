@@ -49,9 +49,12 @@ userSchema.statics.avatarPath = AVATAR_PATH;
 
 
 userSchema.pre('save', async function(next){
+    // used isModified so that if update just user name or mail , it doesn't re-hash a paswd that hasn't changed
     if (!this.isModified('password')) return next();
     try {
+        // save in mongodb
         const salt = await bcrypt.genSalt(10);
+        // replace plain password with a hash
         this.password = await bcrypt.hash(this.password, salt);
         next();
     } catch (err) {
