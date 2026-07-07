@@ -17,7 +17,7 @@ module.exports.create = async function(request, respond){
             });
 
             post.comments.push(comment);
-            post.save();
+            await post.save();
 
             comment = await comment.populate('user', 'name email avatar');
 
@@ -39,6 +39,14 @@ module.exports.create = async function(request, respond){
 
             request.flash('success', 'Comment published!');
             return respond.redirect('/');
+        }else{
+            if(request.xhr){
+                return respond.status(404).json({
+                    message: "Post not Found"
+                });
+            }
+            request.flash('error','Post not found');
+            return respond.redirect('back');
         }
     }catch(err){
         request.flash('error', err);
@@ -51,14 +59,14 @@ module.exports.destroy = async function(request, respond){
     try{
         let comment = await Comment.findById(request.params.id);
 
-        if (comment.user == request.user.id){
+        if (comment.user.toString() == request.user.id){
             let postId = comment.post;
 
             await Post.findByIdAndUpdate(postId, { $pull: {comments: request.params.id}});
 
             await Like.deleteMany({likeable: comment._id, onModel: 'Comment'});
 
-            comment.remove();
+            await comment.remove();
             
             // send the comment id which was deleted back to the views
             if (request.xhr){

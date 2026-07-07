@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const likeSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.ObjectId
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
     },
     // this defines the object id of the liked object
     likeable: {
@@ -19,6 +20,9 @@ const likeSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+likeSchema.index({ user: 1, likeable: 1, onModel: 1 }, { unique: true });
+
 
 const Like = mongoose.model('Like', likeSchema);
 module.exports = Like;

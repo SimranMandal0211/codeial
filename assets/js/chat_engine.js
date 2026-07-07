@@ -1,76 +1,89 @@
-
 // frontend esteblishing
 class ChatEngine{
-    constructor(chatBoxId, userEmail, userName){
+    constructor(chatBoxId, userEmail, userName, userId){
         this.chatBox = $(`#${chatBoxId}`);
         this.userEmail = userEmail;
         this.userName = userName;
+        this.userId = userId;
+        this.receiverId = null;
+        this.
+        
+        currentRoom = null;
 
-// this tell go and connect
-// 1..
-    this.socket = io('http://localhost:5000',{transports: ['websocket']});  //io - is gloable variable by socket.io file
-            // io.connect('http://localhost:5000');
+        this.socket = io(window.location.hostname === 'localhost' ? 'http://localhost:5000' : window.location.origin, {transports: ['websocket']});
 
         if (this.userEmail || this.userName){
             this.connectionHandler();
         }
     }
 
-// 3.. 
+    // builds a deterministic room name shared by exactly these two users
+    getRoomName(userA, userB){
+        return [userA, userB].sort().join('_');
+    }
+
+    openChatWith(receiverId, receiverName){
+        this.receiverId = receiverId;
+        this.currentRoom = this.getRoomName(this.userId, receiverId);
+
+        $('#chat-messages-list').empty(); // clear previous friend's messages from view
+
+        this.socket.emit('join_room', {
+            sender: this.userId,
+            receiver: this.receiverId,
+            chatroom: this.currentRoom
+        });
+    }
+
     connectionHandler(){
         let self = this;
 
+        self.socket.on('user_joined', function(data){
+            console.log('a user joined!', data);
+        });
+
         this.socket.on('connect', function(){
             console.log('connection esteblished using sockets...!');
-
-            self.socket.emit('join_room', {
-                user_email: self.userEmail,
-                user_name: self.userName,
-                chatroom: 'codeial'
-            });
-
-            self.socket.on('user_joined', function(data){
-                console.log('a user joined!', data);
-            });
-
         });
 
         $('#send-message').click(function(){
-            let msg = $('#chat-message-input').val();
+            let msg = $('#chat-message-input').val().trim();
 
-            if (msg != ''){
+            if (msg != '' && self.receiverId){
                 self.socket.emit('send_message', {
                     message: msg,
-                    user_email: self.userEmail,
-                    user_name: self.userName,
-                    chatroom: 'codeial'
+                    sender: self.userId,
+                    receiver: self.receiverId,
+                    chatroom: self.currentRoom
                 });
+                $('#chat-message-input').val('');
             }
-            msg.value = '';
         });
-        
+
         self.socket.on('receive_message', function(data){
             console.log('message received', data.message);
-
-            let newMessage = $('<li>');
-
-            let messageType = 'other-message';
-
-            if ((data.user_email == self.userEmail) || (data.user_name == self.userName)){
-                messageType = 'self-message';
-            }
-
-            newMessage.append($('<span>', {
-                'html': data.message
-            }));
-
-            newMessage.append($('<sub>', {
-                'html': data.user_name
-            }));
-
-            newMessage.addClass(messageType);
-
-            $('#chat-messages-list').append(newMessage);
+            self.renderMessage(data);
         });
+
+        self.socket.on('chat_history', function(messages){
+            messages.forEach(function(m){
+                self.renderMessage({
+                    message: m.message,
+                    sender: m.sender._id || m.sender,
+                    user_name: m.sender.name
+                });
+            });
+        });
+    }
+
+    renderMessage(data){
+        let newMessage = $('<li>');
+        let messageType = (data.sender == this.userId) ? 'self-message' : 'other-message';
+
+        newMessage.append($('<span>', { 'text': data.message }));
+        newMessage.append($('<sub>', { 'html': data.user_name || this.userName }));
+        newMessage.addClass(messageType);
+
+        $('#chat-messages-list').append(newMessage);
     }
 }

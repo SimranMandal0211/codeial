@@ -32,7 +32,7 @@ module.exports.destroy =  async function(request, respond){
         let post = await Post.findById(request.params.id);
 
         // .id means converting the object id into string
-        if(post.user == request.user.id){
+        if(post.user.toString() == request.user.id){
 
             // Deleting all likes associated with the post
             await Like.deleteMany({likeable: post, onModel: 'Post'});
@@ -50,7 +50,7 @@ module.exports.destroy =  async function(request, respond){
             await Comment.deleteMany({post: request.params.id});
 
             // Delete the post itself
-            post.remove();
+            await post.remove();
             
             if(request.xhr){
                 return respond.status(200).json({

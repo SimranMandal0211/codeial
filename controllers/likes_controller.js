@@ -5,7 +5,7 @@ const Comment = require('../models/comment');
 
 module.exports.toggleLike = async function(request, respond){
     try{
-        
+
         // /likes/toggle/?id=<%=post._id%>&type=Post
         // /likes/toggle/?id=<%=comment._id%>&type=Comment
 
@@ -30,9 +30,9 @@ module.exports.toggleLike = async function(request, respond){
         // if a like already exists then delete it
         if(existingLike){
             likeable.likes.pull(existingLike._id);
-            likeable.save();
+            await likeable.save();
 
-            existingLike.remove();
+            await existingLike.remove();
             deleted = true;
 
         }else{
@@ -45,7 +45,7 @@ module.exports.toggleLike = async function(request, respond){
             });
 
             likeable.likes.push(newLike._id);
-            likeable.save();
+            await likeable.save();
         }
 
         return respond.status(200).json({
@@ -57,7 +57,7 @@ module.exports.toggleLike = async function(request, respond){
 
     }catch(err){
         console.log(err);
-        return respond.json(500, {
+        return respond.status(500).json({
             message: 'Internal Server Error'
         });
     }

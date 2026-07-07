@@ -33,6 +33,10 @@
 
                     <a href="/users/profile/<%= friend.to_user.id %>" class="user-friend-name"><%= friend.to_user.name %></a>
 
+                    <a href="#" class="chat-with-friend remove-add-btn"
+                        data-friend-id="<%= friend.to_user.id %>"
+                        data-friend-name="<%= friend.to_user.name %>">Chat</a>
+
                     <a href="/friends/friendship/remove/<%= friend.id %>" class="remove-friend remove-add-btn">Remove</a>
                 </li>
             <% } %>
@@ -85,7 +89,7 @@
 <script src="<%= assetPath('js/chat_engine.js') %>"></script>
 <% if(locals.user){%>
 <script>
-    new ChatEngine('chatbox', '<%= locals.user.email %>', '<%= locals.user.name %>');
+    window.chatEngine = new ChatEngine('chatbox', '<%= locals.user.email %>', '<%= locals.user.name %>', '<%= locals.user._id %>');
 </script>
 <% } %>
 

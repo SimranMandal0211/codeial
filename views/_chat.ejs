@@ -1,10 +1,6 @@
 <link rel="stylesheet" href="<%= assetPath('css/_chat.css') %>" >
 
 <% if(locals.user){ %>
-    <aside id="chat-Btn">
-        <div class="flex"><i class="fa-solid fa-message"></i></div>
-    </aside>
-
     <aside id="chatbox" >   <!-- id="user-chat-box" -->
         <div id="close-chats">X</div>
         <ul class="messageBox" id="chat-messages-list" >
@@ -26,16 +22,22 @@
 <% } %>
 
 <script>
-    const showPopupBtn = document.getElementById('chat-Btn');
     const closePopupBtn = document.getElementById('close-chats');
     const popup = document.getElementById('chatbox');
-
-    showPopupBtn.addEventListener('click', () => {
-      popup.style.display = 'block';
-    });
 
     closePopupBtn.addEventListener('click', () => {
       popup.style.display = 'none';
     });
-</script>
 
+    // open a private chat when a friend's "Chat" link is clicked
+    document.querySelectorAll('.chat-with-friend').forEach(function(el){
+        el.addEventListener('click', function(e){
+            e.preventDefault();
+            const friendId = this.dataset.friendId;
+            const friendName = this.dataset.friendName;
+
+            popup.style.display = 'block';
+            window.chatEngine.openChatWith(friendId, friendName);
+        });
+    });
+</script>

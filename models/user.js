@@ -39,7 +39,7 @@ let storage = multer.diskStorage({
         cb(null, path.join(__dirname, '..', AVATAR_PATH));
     },
     filename: function(request, file, cb){
-        cb(null, file.fieldname + '-' + Date.now());    // file.fieldname = avatar
+        cb(null, file.fieldname + '-' + Date.now());  // file.fieldname = avatar
     }
 });
 
