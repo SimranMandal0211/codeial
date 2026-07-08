@@ -3,56 +3,49 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const moment = require('moment');
 
+
 module.exports.home = async function(request, respond){
     
-    // populate the user of each post
     try{
 
-        const loggedInUserId = request.user;
+        const loggedInUserId = request.user ? request.user.id : null;
 
         let posts = await Post.find({})
         .sort('-createdAt')
-        .populate('user')  //<post.user.name> - will crash if we don't populate
+        .populate('user')
         .populate({
             path: 'comments',
-            populate: {
-                path: 'user'
-            },
-           
+            populate: { path: 'user' },
         }).populate({
             path: 'comments',
-            populate: {
-                path: 'likes'
-            },
+            populate: { path: 'likes' },
         })
-        // .populate('comments')
-        .populate('likes');   //for post
+        .populate('likes');
 
         posts = posts.map(post => {
-            let postTime = moment(post.createdAt).fromNow();
-            post.relativeTime = postTime;
-
+            post.relativeTime = moment(post.createdAt).fromNow();
             post.comments = post.comments.map(comment => {
-                let commentTime = moment(comment.createdAt).fromNow();
-                comment.relativeTime = commentTime;
+                comment.relativeTime = moment(comment.createdAt).fromNow();
                 return comment;
             });
-
             return post;
         });
-        // console.log('qqqq',posts[0].comments);
         
         let users = await User.find({})
 
-        let friendlist = await Friendship.find({ from_user: loggedInUserId })
-        .populate({
-            path: 'to_user',
-            populate: {
-                path: 'name'
-            }
-        })
+        let friendlist = [];
+        if(loggedInUserId){
+            friendlist = await Friendship.find({
+                $or: [{ from_user: loggedInUserId }, { to_user: loggedInUserId }]
+            })
+            .populate('from_user')
+            .populate('to_user');
 
-        // console.log('user frineds:: ',friendlist[0].to_user);
+            friendlist = friendlist.map(f => {
+                f.friend = f.from_user._id.equals(loggedInUserId) ? f.to_user : f.from_user;
+                return f;
+            });
+        }
 
         return respond.render('home', {
             title: "Codeial | Home",
@@ -62,5 +55,6 @@ module.exports.home = async function(request, respond){
         });
     }catch(err){
         console.log('Error', err);
+        return respond.redirect('back');
     }
 }

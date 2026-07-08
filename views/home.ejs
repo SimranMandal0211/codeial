@@ -29,13 +29,13 @@
         <ul id="friend-list">
             <% for(friend of all_friends){ %>
                 <li id="friend-<%= friend.id %>">
-                    <img src="<%= friend.to_user.avatar %>" alt="<%= friend.to_user.name %>">
+                    <img src="<%= friend.friend.avatar %>" alt="<%= friend.friend.name %>">
 
-                    <a href="/users/profile/<%= friend.to_user.id %>" class="user-friend-name"><%= friend.to_user.name %></a>
+                    <a href="/users/profile/<%= friend.friend.id %>" class="user-friend-name"><%= friend.friend.name %></a>
 
                     <a href="#" class="chat-with-friend remove-add-btn"
-                        data-friend-id="<%= friend.to_user.id %>"
-                        data-friend-name="<%= friend.to_user.name %>">Chat</a>
+                        data-friend-id="<%= friend.friend.id %>"
+                        data-friend-name="<%= friend.friend.name %>">Chat</a>
 
                     <a href="/friends/friendship/remove/<%= friend.id %>" class="remove-friend remove-add-btn">Remove</a>
                 </li>

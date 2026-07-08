@@ -10,9 +10,15 @@ module.exports.addFriend = async function(request, respond){
       const fromUserId = request.user.id;
       const toUserId = request.query.toUser;
 
+      if(fromUserId === toUserId){
+        return respond.status(400).json({ message: "You can't add yourself as a friend" });
+      }
+
       let existingFriend = await Friendship.findOne({
-        to_user: toUserId,
-        from_user: fromUserId
+        $or: [
+          { from_user: fromUserId, to_user: toUserId },
+          { from_user: toUserId, to_user: fromUserId }
+        ]
       });
 
       if(!existingFriend) {
@@ -34,16 +40,17 @@ module.exports.addFriend = async function(request, respond){
         toUser.friendships.push(friendship._id);
 
         await Promise.all([fromUser.save(), toUser.save()]);
+
         console.log('Friend Added');
+
+
         if(request.xhr){
           return respond.status(200).json({
             message: 'Friend request sent successfully',
-            data: {
-              fromUser: fromUser,
-              toUser: toUser
-            }
-          })
+            data: { fromUser: fromUser, toUser: toUser, friendshipId: friendship._id }
+          });
         }
+        return respond.redirect('back');
 
     }else{
       console.log('existing friend');
@@ -52,7 +59,9 @@ module.exports.addFriend = async function(request, respond){
 
     
   }catch(err){
-    return respond.status(500).json({ error: 'Something wet wrong'});
+    console.log('Error in add friend', err);
+    if(request.xhr) return respond.status(500).json({ error: 'Something went wrong' });
+    return respond.redirect('back');
   }
 }
 
@@ -65,28 +74,32 @@ module.exports.removeFriend = async function(request, respond){
     
     const friendDelete = await Friendship.findById(request.params.id);
 
-    if(friendDelete){
-      const userWithFriend = await User.find({friendships: request.params.id})
-
-      for (const user of userWithFriend) {
-        user.friendships.pull(request.params.id);
-        await user.save();
-      }
-
-      friendDelete.remove();
-      console.log('Friend Deleted');
-      if (request.xhr){
-        return respond.status(200).json({
-            data: {
-                to_user: request.params.id
-            },
-            message: "Friend deleted"
-        });
-      }
+    if(!friendDelete){
+      if(request.xhr) return respond.status(404).json({ message: 'Friendship not found' });
+      return respond.redirect('back');
     }
+
+    const userWithFriend = await User.find({friendships: request.params.id});
     
-    
+    for (const user of userWithFriend) {
+      user.friendships.pull(request.params.id);
+      await user.save();
+    }
+
+    await Friendship.findByIdAndDelete(request.params.id);
+
+    if (request.xhr){
+      return respond.status(200).json({
+        data: { to_user: request.params.id },
+        message: "Friend deleted"
+      });
+    }
+    return respond.redirect('back');
+        
+        
   } catch (error) {
-    console.log('errir in delete friend',error);
+    console.log('error in delete friend', error);
+    if(request.xhr) return respond.status(500).json({ error: 'Something went wrong' });
+    return respond.redirect('back');
   }
 }

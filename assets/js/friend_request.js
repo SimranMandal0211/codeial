@@ -1,38 +1,42 @@
 {
     let addFriend = function(){
-        let newFriendLink = $('.add-friend-btn');
-        newFriendLink.click(function(e){
-            e.preventDefault();
-            let self = this;
+    let newFriendLink = $('.add-friend-btn');
+    newFriendLink.click(function(e){
+        e.preventDefault();
+        let self = this;
 
-            $.ajax({
-                type: 'post',
-                url:$(self).attr('href'),
-            }).done(function(data){
-                let newFriend = newFriendDom(data.data.toUser);
-                $('#user-friends>ul').prepend(newFriend);
-                deleteFriend($(' .remove-friend',newFriend));
+        $.ajax({
+            type: 'post',
+            url: $(self).attr('href'),
+        }).done(function(data){
+            let newFriend = newFriendDom(data.data.toUser, data.data.friendshipId);
+            $('#user-friends>ul').prepend(newFriend);
+            deleteFriend($(' .remove-friend', newFriend));
 
-                new Noty({
-                    theme: 'relax',
-                    text: 'Friend Added!!!',
-                    type: 'success',
-                    layout: 'topRight',
-                    timeout: 1500
-                }).show();
-            }).fail(function(err){
-                console.log('error in completing the request');
-            });
-        })
-    }
+            new Noty({
+                theme: 'relax',
+                text: 'Friend Added!!!',
+                type: 'success',
+                layout: 'topRight',
+                timeout: 1500
+            }).show();
+        }).fail(function(err){
+            console.log('error in completing the request');
+        });
+    })
+}
 
-    let newFriendDom = function(friend){
-        return $(`<li id="friend-${ friend._id }">
+    let newFriendDom = function(friend, friendshipId){
+        return $(`<li id="friend-${ friendshipId }">
                     <img src="${ friend.avatar }" alt="${ friend.name }">
 
                     <a href="/users/profile/${ friend._id }" class="user-friend-name">${ friend.name }</a>
 
-                    <a href="/friends/friendship/remove/${ friend._id }" class="remove-friend remove-add-btn">Remove</a>
+                    <a href="#" class="chat-with-friend remove-add-btn"
+                        data-friend-id="${ friend._id }"
+                        data-friend-name="${ friend.name }">Chat</a>
+
+                    <a href="/friends/friendship/remove/${ friendshipId }" class="remove-friend remove-add-btn">Remove</a>
                 </li>`);
     }
 
